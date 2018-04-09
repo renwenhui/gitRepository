@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>天狮之家</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body>
+
+	<div class="login_hend"> 
+		
+		<a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>	  
+	</div>
+	<div class="app_coent">
+		<div class="PersonalCenter_hend">
+			<div class="Personal_img">
+				<img src="static/img/my12@2x.png">
+			</div>
+			<a>158****1234</a>
+			<!--<p>会员名称</p>-->
+		</div>
+		<div class="PersonalCenter_cont">
+			
+			<a href="userDetail.html" class="apert">
+				 <div class="apert_left">
+				 	  <span><img src="static/img/my15@2x_3.png"></span>
+				 	  <h4>基本信息</h4>
+				 </div>
+				 <div class="apert_right">
+				 	 
+				 </div>
+			</a>
+			<a href="myArticle.html" class="apert">
+				 <div class="apert_left">
+				 	  <span><img src="static/img/my15@2x_24.png"></span>
+				 	  <h4>我的帖子</h4>
+				 </div>
+				 <div class="apert_right">
+				 	 
+				 </div>
+			</a>
+			<a href="myEvaluate.html" class="apert">
+				 <div class="apert_left">
+				 	  <span><img src="static/img/my15@2x_99.png"></span>
+				 	  <h4>我的评论</h4>
+				 </div>
+				 <div class="apert_right">
+				 	
+				 </div>
+			</a>
+			<a href="changePassword.html" class="apert">
+				 <div class="apert_left">
+				 	  <span><img src="static/img/my15@2x_19.png"></span>
+				 	  <h4>修改密码</h4>
+				 </div>
+				 <div class="apert_right">
+				 	 
+				 </div>
+			</a>
+		</div>
+		
+				<a href="login.html" ><input value="退出登录" class="cent_buttom_1 spoert" type="button" msg-tite="您是否退出？"></a>
+			
+	</div>
+		
+			
+<div class="forder">
+	<ul>
+		<!--<li><a class="ror_1" href="index.html" >首页</a></li>-->
+		<li><a class="ror_2" href="article.html">资讯</a></li>
+		<li><a class="ror_3" href="message.html">消息</a></li>
+		<li><a class="ror_4 acver" href="perCenter.html">我的</a></li>
+	</ul>
+</div>			
+		
+</body>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script src="static/js/js.js"></script>
+</html>

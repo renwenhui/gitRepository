@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>天狮之家</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body>
+	<div class="app_hend">
+		   回复消息
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
+	</div>
+	<div class="page_content">
+		 <div class="Scenic" id="LAY_demo1">
+		 	 <div class="spot">
+				 <a href="articleDetail.html" >
+					<b><img src="static/img/zx@2x.png" /></b>
+					<h3>三亚大东海</h3>
+					<p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p>
+					<hr />
+				 </a>
+				<img class="evaluate " src="static/img/ggg.png" style="width:1.5rem;height: 1.5rem;margin-left: 1rem;margin-right: 0.5rem;"><span>评价</span></img>
+				<img class="like " src="static/img/xi02@2xx.png" style="width:1.5rem;height: 1.5rem; margin-left: 3rem;margin-right: 0.5rem;"><span>点赞</span></img>
+			 </div>
+		 	 
+		 	 
+		 </div>
+	</div>
+			
+	<div class="forder">
+		<ul>
+			<!--<li><a class="ror_1 " href="index.html" >首页</a></li>-->
+			<li><a class="ror_2 acver" href="article.html">资讯</a></li>
+			<li><a class="ror_3" href="message.html">消息</a></li>
+			<li><a class="ror_4" href="perCenter.html">我的</a></li>
+		</ul>
+	</div>				
+</body>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layui/layui.js"></script>
+<script src="static/js/js.js"></script>
+
+<script>
+layui.use('flow', function(){
+  var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+  var flow = layui.flow;
+  flow.load({
+    elem: '#LAY_demo1' //指定列表容器
+    ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+
+     // var lis = [];
+//      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+//      $.get('/api/list?page='+page, function(res){
+//        //假设你的列表返回在data集合中
+//        layui.each(res.data, function(index, item){
+//          lis.push('<a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p></a>');
+//        }); 
+//        
+//        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+//        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+//        next(lis.join(''), page < res.pages);    
+//      });
+
+       setTimeout(function(){
+        var lis = [];
+        for(var i = 0; i < 4; i++){
+          lis.push('<div class="spot"><a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p><hr /></a><img class="evaluate " src="img/ggg.png" style="width:1.5rem;height: 1.5rem;margin-left: 1rem;margin-right: 0.5rem;"><span>评价</span></img><img class="like " src="img/xi02@2xx.png" style="width:1.5rem;height: 1.5rem; margin-left: 3rem;margin-right: 0.5rem;"><span>点赞</span></img></div>')
+        }
+        
+        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+        next(lis.join(''), page < 4); //假设总页数为 4
+      }, 500);
+
+     
+    }
+  });
+});	
+$('body').on('click','.evaluate',function(){
+	location.href = 'evaluateList.html';	
+})
+</script>
+</html>

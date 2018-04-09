@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>天狮之家</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/swiper.min.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body>
+	<div class="app_hend">
+		         回复
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
+		  
+	</div>
+	<div class="page_content" >
+	    <div class="message_add">
+	    	
+		   	<div class="webluate">
+		   		 <div class="webluate_left">
+		   		 	@Xcvvv ：
+		   		 </div>
+		   	</div>
+		   	<div class="webluate_cont">
+		   		 <div class="webluate_left1">
+		   		 	内容 ：
+		   		 </div>
+		   		 <div class="webluate_right1">
+		   		 	<textarea id="repaycontent"></textarea>
+		   		 </div>
+		   	</div>
+		</div>
+		<div class="onbut">
+			<input type="button" value="确认" class="onbut_inp spoert" msg-tite="您是否确认？" onclick="doSubmit()"/>
+		</div>
+	</div>
+   
+			
+</body>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script type="text/javascript" src="static/js/jquery.raty.min.js"></script>
+<script src="static/js/js.js"></script>
+<script type="text/javascript">
+      $.fn.raty.defaults.path = 'img';
+      $('#default-demo').raty();
+      var aa = $('.webluate_right').width()
+	  $('#default-demo').width(aa)
+  </script>
+	
+<script src="static/js/tinyImgUpload.js"></script>
+<script>
+
+
+var options = {
+    path: '/',
+    onSuccess: function (res) {
+        console.log(res);
+    },
+    onFailure: function (res) {
+        console.log(res);
+    }
+}
+
+function doSubmit() {
+	var evaluateid =getQueryString("evaluateid");
+    var repaycontent = $("#repaycontent").val();
+    var postData = {"evaluateid":evaluateid,"repaycontent":repaycontent};
+    $.ajax({
+                 url: ctxApp+"/replyController/doInsert",
+                 dataType: 'json',
+                 data:postData,
+                 method: 'POST',
+                 async: false,//使用同步的方式,true为异步方式
+                 success: function(data) {
+                     layer.alert(data.msg);
+                }
+        });
+    
+}
+
+</script>
+
+</html>

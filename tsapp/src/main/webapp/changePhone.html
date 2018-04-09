@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>多用户</title>
+	</head>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+	<link rel="stylesheet" href="css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body>
+	<div class="app_hend">
+		         修改手机
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="img/sy_icon01.png"></a>
+		 
+	</div>
+	<div class="page_content">
+		<div class="oastic">
+			 <div class="oastic_cont">
+			 	 <div class="oastic_lo_left">
+			 	 	  手机号码 ：
+			 	 </div>
+			 	 <div class="oastic_lo_right">
+			 	 	  <input type="text" placeholder="请输入手机号码" class="oastic_inp_1" />
+			 	 </div>
+			 </div>
+			
+			 <div class="login_buttom">
+				<a><input value="完成" class="login_buttom_1" type="button"></a>
+			</div>
+		</div>
+		
+	</div>
+   
+			
+</body>
+<script src="js/jquery-1.10.1.min.js"></script>
+<script src="layer/layer.js"></script>
+<script src="js/js.js"></script>
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ts.app.sys.dao.EvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.ts.app.sys.domain.Evaluate">
+    <id column="evaluateId" jdbcType="INTEGER" property="evaluateid" />
+    <result column="articleId" jdbcType="INTEGER" property="articleid" />
+    <result column="evaluateContent" jdbcType="VARCHAR" property="evaluatecontent" />
+    <result column="isReaded" jdbcType="CHAR" property="isreaded" />
+    <result column="createUserId" jdbcType="INTEGER" property="createuserid" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updateUserId" jdbcType="INTEGER" property="updateuserid" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="deleteFlag" jdbcType="CHAR" property="deleteflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    evaluateId, articleId, evaluateContent, isReaded, createUserId, createDate, updateUserId, 
+    updateDate, deleteFlag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from evaluate
+    where evaluateId = #{evaluateid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from evaluate
+    where evaluateId = #{evaluateid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ts.app.sys.domain.Evaluate">
+    insert into evaluate (evaluateId, articleId, evaluateContent, 
+      isReaded, createUserId, createDate, 
+      updateUserId, updateDate, deleteFlag
+      )
+    values (#{evaluateid,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{evaluatecontent,jdbcType=VARCHAR}, 
+      #{isreaded,jdbcType=CHAR}, #{createuserid,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updateuserid,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, #{deleteflag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ts.app.sys.domain.Evaluate">
+    insert into evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evaluateid != null">
+        evaluateId,
+      </if>
+      <if test="articleid != null">
+        articleId,
+      </if>
+      <if test="evaluatecontent != null">
+        evaluateContent,
+      </if>
+      <if test="isreaded != null">
+        isReaded,
+      </if>
+      <if test="createuserid != null">
+        createUserId,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="updateuserid != null">
+        updateUserId,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="deleteflag != null">
+        deleteFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evaluateid != null">
+        #{evaluateid,jdbcType=INTEGER},
+      </if>
+      <if test="articleid != null">
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="evaluatecontent != null">
+        #{evaluatecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isreaded != null">
+        #{isreaded,jdbcType=CHAR},
+      </if>
+      <if test="createuserid != null">
+        #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null">
+        #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        #{deleteflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ts.app.sys.domain.Evaluate">
+    update evaluate
+    <set>
+      <if test="articleid != null">
+        articleId = #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="evaluatecontent != null">
+        evaluateContent = #{evaluatecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isreaded != null">
+        isReaded = #{isreaded,jdbcType=CHAR},
+      </if>
+      <if test="createuserid != null">
+        createUserId = #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null">
+        updateUserId = #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        deleteFlag = #{deleteflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where evaluateId = #{evaluateid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ts.app.sys.domain.Evaluate">
+    update evaluate
+    set articleId = #{articleid,jdbcType=INTEGER},
+      evaluateContent = #{evaluatecontent,jdbcType=VARCHAR},
+      isReaded = #{isreaded,jdbcType=CHAR},
+      createUserId = #{createuserid,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateUserId = #{updateuserid,jdbcType=INTEGER},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=CHAR}
+    where evaluateId = #{evaluateid,jdbcType=INTEGER}
+  </update>
+  
+   <select id="queryListByArticeId" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from evaluate
+    where articleid = #{articleid,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

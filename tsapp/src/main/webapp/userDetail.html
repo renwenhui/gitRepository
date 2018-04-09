@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>天狮之家</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/swiper.min.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body>
+	<div class="app_hend">
+		         基本信息
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
+		 
+	</div>
+	<div class="page_content">
+		<div class="oastic">
+			<div class="Businessx">
+			 	 <div class="Businessx_left1">
+			 	 	  头像 ：
+			 	 </div>
+			 	 <div class="Businessx_right">
+			 	 	  <div class="bus_img" id="preview1">
+			 	 	  	<img src="static/img/jbxx01@2x_31.png">
+			 	 	  </div>
+			 	 	  <div class="fileweb">
+			 	 	  	点击上传头像
+			 	 	  <input onchange="preview(this)" type="file">
+			 	 	  </div>
+                        
+			 	 </div>
+			 </div>
+			 <div class="oastic_cont_1">
+			 	 <div class="oastic_lo_left2">
+			 	 	  名称 ：
+			 	 </div>
+			 	 <div class="oastic_lo_right4">
+			 	 	  大奥
+			 	 </div>
+			 </div>
+			 <div class="oastic_cont_1">
+			 	 <div class="oastic_lo_left2">
+			 	 	  性别 ：
+			 	 </div>
+			 	 <div class="oastic_lo_right4">
+			 	 	  xx
+			 	 </div>
+			 </div>
+			 <div class="oastic_cont_1">
+			 	 <div class="oastic_lo_left2">
+			 	 	 邮箱号 ：
+			 	 </div>
+			 	 <div class="oastic_lo_right4">
+			 	 	  798844081@qq.com
+			 	 </div>
+			 </div>
+			 <a href="changePhone.html" class="oastic_cont_1">
+			 	 <div class="oastic_lo_left2">
+			 	 	 手机号 ：
+			 	 </div>
+			 	 <div class="oastic_lo_right3">
+			 	 	  1365242536
+			 	 </div>
+			 </a>
+			 <!--<a class="oastic_cont_1">
+			 	 <div class="oastic_lo_left2">
+			 	 	 邮箱 ：
+			 	 </div>
+			 	 <div class="oastic_lo_right3">
+			 	 	  199056611111@qq.com
+			 	 </div>
+			 </a>-->
+			 
+			
+		</div>
+		
+	</div>
+   
+			
+</body>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script src="static/js/js.js"></script>
+<script type="text/javascript">
+  function preview(file) {
+    var prevDiv1 = document.getElementById('preview1');
+    if (file.files && file.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        prevDiv1.innerHTML = '<img src="' + evt.target.result + '" />';
+      }
+      reader.readAsDataURL(file.files[0]);
+    } else {
+      prevDiv1.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+    }
+  }
+  </script>
+</html>

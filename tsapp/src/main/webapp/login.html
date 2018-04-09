@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>天狮之家</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+	</script>
+	<script src="static/js/jquery-1.10.1.min.js"></script>
+	<script src="static/js/js.js"></script>
+	<script src="static/js/regular.js"></script>
+	<script src="static/js/regular.js"></script>
+	<body style="background-image: url(static/img/dl_bj.png); background-attachment: fixed; background-repeat: no-repeat;  background-size: cover;">
+	<style>
+	.verification_code {
+	    box-sizing: border-box;
+	    height: 4rem;
+	    text-align: center;
+	    font-size: 28px;
+	    width: 9.5rem;
+	    border-radius: 5px;
+	    margin-left: 5px;
+	    color: #B3B3B3;
+	    cursor: pointer;
+	    display:inline-block;
+	    float: right !important;
+	}
+
+	
+	</style>
+
+	<div class="login_hend"> 
+		       用户登录
+			  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>	  
+	</div>
+<div class="wisterp">
+	<div class="login_logo">
+		<img src="static/img/qr.png">
+	</div>
+	<div class="web_est">
+	    <div class="login_coent">
+			 <div class="login_onict">
+			 	 <div class="login_onict_left">
+			 	 	 <img src="static/img/dl02.png">
+			 	 </div>
+			 	 <div class="login_onict_right">
+			 	 	 <input type="text" placeholder="请输入手机号或用户名" class="login_inp_1" id="userName" />
+			 	 </div>
+			 </div>
+			 <div class="login_onict">
+			 	 <div class="login_onict_left">
+			 	 	 <img src="static/img/dl02_97.png">
+			 	 </div>
+			 	 <div class="login_onict_right">
+			 	 	 <input type="text" placeholder="密码" class="login_inp_1" id="password"/>
+			 	 	 
+			 	 </div>
+			 </div>
+			 <div class="login_onict">
+			 	 <div class="login_onict_left">
+			 	 	 <img src="static/img/dl03.png">
+			 	 </div>
+			 	 <div class="login_onict_right1">
+			 	 	 <input type="text" placeholder="验证码" class="login_inp_2" id="imgCode"/>
+			 	 	 <div class="verification_code right">
+						<img  class="web_sink_but"  id="refreshImgCode" style="cursor:pointer;min-width:0;width:100%;" src="http://localhost:8080/tsapp/drawVerCode"/>
+					</div>
+			 	 	 <!-- <input type="button" value="S J K O" class="login_inp_3" src="localhost:8080/tsapp/drawVerCode" id="refreshImgCode"/> -->
+			 	 </div>
+			 </div>
+		</div>
+		<!--<div class="oatcor">
+			<a href="忘记密码.html">忘记密码？</a>
+		</div>-->
+		<div class="login_buttom">
+			<a href="#"><input type="button" value="登录" class="login_buttom_1" id="login"/></a>
+			<a href="register.html"><input type="button" value="注册" class="login_buttom_2" /></a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	//刷新图片 
+	$("#refreshImgCode").on('click',function(){ 
+		var imgSrc = $("#refreshImgCode");
+		var src = imgSrc.attr("src");
+		var timestamp = (new Date()).valueOf();
+		src = src + "?timestamp=" + timestamp;
+		imgSrc.attr("src", src);
+	});
+	
+    $("#login").click(function(){
+    //验证
+    var userName=$.trim($("#userName").val());
+	var password=$.trim($("#password").val());
+	var imgCode=$.trim($("#imgCode").val());
+	alert(userName);
+	alert(password);
+	alert(imgCode);
+	if (!isEmpty(userName,"用户名")) return;
+	if (!isEmpty(password,"密码")) return;
+	if (!isEmpty(imgCode,"验证码")) return;	
+       //登录
+       $.ajax({
+           url: ctxApp+'/login',
+           data: {
+           	'userName' : userName ,
+           	'password' : password,
+           	'imgCode': imgCode
+           },
+           type: "POST",
+           dataType: "json",
+           success: function(data){
+           	  layer.closeAll('loading');
+                 if(data.success){
+                	location.href = ctxApp+'/article.html';
+ 					
+                 }else{
+         	    	layer.msg(data.msg);
+                 }
+             },
+             error: function(data){
+                 try {
+       	    		layer.msg("请求异常");
+                 	return false;
+                 }catch (e) {
+                 	console.log(e);
+                 }
+             }
+       	});
+ 	});
+});
+	
+</script>  	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+</body>
+<script src="js/jquery-1.10.1.min.js"></script>
+<script src="layui/layui.js"></script>
+<script src="js/js.js"></script>
+</html>

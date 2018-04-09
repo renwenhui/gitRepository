@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>多用户</title>
+		
+		<link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/swiper.min.css">
+    <link rel="stylesheet" href="static/css/css.css">
+    <script>
+        (function(global){
+            function remChange(){
+                document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+            }
+            remChange();
+            global.addEventListener('resize',remChange,false);
+        })(window);
+</script>
+
+	</head>
+    
+<body>
+	<div class="app_hend">
+		  <a class="infoNav" style="font-size: 18px;color: #FFFFFF;display:inline-block;width: 20%;" href="article.html">校内</a>
+		  <a class="infoNav" style="font-size: 18px;color: #FFFFFF;display:inline-block;width: 20%;" href="dailyRecommend.html">推荐</a>
+		  <a class="infoNav" style="font-size: 18px;color: blue;display:inline-block;width: 20%;" href="publishArticle.html">发帖</a>
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
+	</div>
+	<div class="page_content" >
+	    <div class="message_add">
+	    <form class="main" id="addForm" method="post" enctype="multipart/form-data">
+		   	<div class="webluate">
+		   		 <div class="webluate_left">
+		   		 	标题 ：
+		   		 </div>
+		   		 <div class="webluate_right">
+		   		 	<input type="text" name="title" id="title"/>
+		   		 </div>
+		   	</div>
+		   	<div class="webluate_cont">
+		   		 <div class="webluate_left1">
+		   		 	内容 ：
+		   		 </div>
+		   		 <div class="webluate_right1">
+		   		 	<textarea id="articlecontent" name="articlecontent"></textarea>
+		   		 </div>
+		   	</div>
+		   	<div class="webluate_cont">
+		   		 <div class="webluate_left1">
+		   		 	图片 ：
+		   		 </div>
+		   		 <div class="webluate_right1">
+		   		 	
+			 	   <!--  <div id="upload" class="niopent">
+		   		   </div> -->
+		   		   <input type="file" name="file"  id="file" accept="image/jpg,image/jpeg,image/png" value="" class="upload"/>
+		   	</div>
+		   	
+		   	
+		</div>
+		<div class="onbut">
+			<input type="button" value="确认" class="onbut_inp spoert" msg-tite="您是否确认？" onclick="doSubmit()"/>
+		</div>
+		
+		</form>
+		
+	</div>
+
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script type="text/javascript" src="static/js/jquery.raty.min.js"></script>
+<script src="static/js/js.js"></script>
+<script type="text/javascript">
+      $.fn.raty.defaults.path = 'img';
+      $('#default-demo').raty();
+      var aa = $('.webluate_right').width()
+	  $('#default-demo').width(aa)
+  </script>
+	
+<script>
+
+
+var options = {
+    path: '/',
+    onSuccess: function (res) {
+        console.log(res);
+    },
+    onFailure: function (res) {
+        console.log(res);
+    }
+}
+
+//var upload = tinyImgUpload('#upload', options);
+
+$(".upload").change(function () {
+    var headImgUrl=getObjectURL(this.files[0]);
+    $(this).next().attr("src",headImgUrl);
+})
+
+/* document.getElementsByClassName('submit')[0].onclick = function (e) {
+    upload();
+} */
+
+function doSubmit() {
+	
+	/* var title = $("#title").val();
+	var articlecontent = $("#articlecontent").val();
+	var imgurl = $("#imgurl").val();
+	var postData = {"title":title,"articlecontent":articlecontent,"imgurl":imgurl}; */
+	var formData = new FormData($("#addForm" )[0]);
+	
+	var postUrl = ctxApp+"/articleController/upphoto";
+	alert(postUrl);
+	$.ajax({
+                 url: postUrl,
+                 dataType: 'json',
+                 data:formData,
+                 method: 'POST',
+                 async: false,  
+                 cache: false,  
+                 contentType: false,  
+                 processData: false, 
+                 success: function(data) {
+                	 layer.msg(data.msg);
+                }
+	    });
+	
+}
+
+//获取图片路径
+function getObjectURL(file) {
+    var url = null ; 
+    if (window.createObjectURL!=undefined) { // basic
+        url = window.createObjectURL(file) ;
+    } else if (window.URL!=undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file) ;
+    } else if (window.webkitURL!=undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+}
+
+</script>
+
+</body>
+
+</html>

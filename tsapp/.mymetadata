@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="workoa"
+  id="myeclipse.1510889199467"
+  context-root="/workoa"
+  j2ee-spec="1.7"
+  archive="workoa.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

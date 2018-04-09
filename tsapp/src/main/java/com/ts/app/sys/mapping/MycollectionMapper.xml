@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ts.app.sys.dao.MycollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.ts.app.sys.domain.Mycollection" >
+    <id column="collectionId" property="collectionid" jdbcType="INTEGER" />
+    <result column="articleId" property="articleid" jdbcType="INTEGER" />
+    <result column="createUserId" property="createuserid" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="updateUserId" property="updateuserid" jdbcType="INTEGER" />
+    <result column="updateDate" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="deleteFlag" property="deleteflag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    collectionId, articleId, createUserId, createDate, updateUserId, updateDate, deleteFlag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mycollection
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mycollection
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ts.app.sys.domain.Mycollection" >
+    insert into mycollection (collectionId, articleId, createUserId, 
+      createDate, updateUserId, updateDate, 
+      deleteFlag)
+    values (#{collectionid,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{createuserid,jdbcType=INTEGER}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{updateuserid,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, 
+      #{deleteflag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ts.app.sys.domain.Mycollection" >
+    insert into mycollection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectionid != null" >
+        collectionId,
+      </if>
+      <if test="articleid != null" >
+        articleId,
+      </if>
+      <if test="createuserid != null" >
+        createUserId,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="updateuserid != null" >
+        updateUserId,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+      <if test="deleteflag != null" >
+        deleteFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectionid != null" >
+        #{collectionid,jdbcType=INTEGER},
+      </if>
+      <if test="articleid != null" >
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ts.app.sys.domain.Mycollection" >
+    update mycollection
+    <set >
+      <if test="articleid != null" >
+        articleId = #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="createuserid != null" >
+        createUserId = #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        updateUserId = #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null" >
+        deleteFlag = #{deleteflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ts.app.sys.domain.Mycollection" >
+    update mycollection
+    set articleId = #{articleid,jdbcType=INTEGER},
+      createUserId = #{createuserid,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateUserId = #{updateuserid,jdbcType=INTEGER},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=CHAR}
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByArticeIdAndCreateUid" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from mycollection
+    where articleId = #{articleId,jdbcType=INTEGER}
+    and createUserId = #{createuserid,jdbcType=INTEGER}
+    and deleteFlag is null 
+  </select>
+  
+   <update id="update2" parameterType="com.ts.app.sys.domain.Mycollection" >
+    update mycollection
+    set 
+      deleteFlag = #{deleteflag,jdbcType=CHAR}
+    where articleId = #{articleId,jdbcType=INTEGER}
+    and createUserId = #{createuserid,jdbcType=INTEGER}
+    
+  </update>
+  
+</mapper>

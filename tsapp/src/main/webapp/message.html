@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>天狮之家</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body>
+	<div class="app_hend">
+		   消息
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
+	</div>
+	<div class="page_content">
+		 <div class="guide">
+		 	  <a href="evaluateMassage.html" class="guide_mint">
+		 	  	  <div class="guide_mint_left">
+		 	  	  	 <img src="static/img/zn@2x.png">
+		 	  	  </div>
+		 	  	  <div class="guide_mint_cortr">
+		 	  	  	 评论消息
+		 	  	  </div>
+				  <div style=" width:1.5rem; height:1.5rem; background-color:#F00; border-radius:2rem;float: left;margin-top: 1.75rem;margin-left: 1rem;">
+						<span style="height:1.5rem; line-height:1.5rem; display:block; color:#FFF; text-align:center">1</span>
+				  </div>
+		 	  	  <div class="guide_mint_a">
+		 	  	  	 <img src="static/img/my10@2x.png">  
+		 	  	  </div>
+		 	  </a>
+		 	  <a href="replyMessage.html" class="guide_mint">
+		 	  	  <div class="guide_mint_left">
+		 	  	  	 <img src="static/img/zn@2x_98.png">
+		 	  	  </div>
+		 	  	  <div class="guide_mint_cortr">
+		 	  	  	 回复消息
+		 	  	  </div>
+				  <div style=" width:1.5rem; height:1.5rem; background-color:#F00; border-radius:2rem;float: left;margin-top: 1.75rem;margin-left: 1rem;">
+						<span style="height:1.5rem; line-height:1.5rem; display:block; color:#FFF; text-align:center">2</span>
+				  </div>
+		 	  	  <div class="guide_mint_a">
+		 	  	  	 <img src="static/img/my10@2x.png">
+		 	  	  </div>
+		 	  </a>
+		 </div>
+	</div>
+			
+	<div class="forder">
+		<ul>
+			<!--<li><a class="ror_1 " href="index.html" >首页</a></li>-->
+			<li><a class="ror_2" href="article.html">资讯</a></li>
+			<li><a class="ror_3 acver" href="message.html">消息</a></li>
+			<li><a class="ror_4" href="perCenter.html">我的</a></li>
+		</ul>
+	</div>				
+</body>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layui/layui.js"></script>
+<script src="static/js/js.js"></script>
+</html>

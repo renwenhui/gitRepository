@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>多用户</title>
+	</head>
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+	<link rel="stylesheet" href="static/css/css.css">
+	<script>
+		(function(global){
+			function remChange(){
+				document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+			}
+			remChange();
+			global.addEventListener('resize',remChange,false);
+		})(window);
+</script>
+<body style="background: #FFFFFF;">
+	<div class="app_hend">
+		   评价列表
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
+	</div>
+	<div style="padding-top: 8rem;">
+	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 5px;"><span>评价 0</span></img>
+		<img  class="like" src="static/img/xi02@2xx.png" style="width:15px;height: 15px; margin-left: 30px;margin-right: 5px;" onclick="doLikenum(1)"><span>点赞 <span id="likenum">0</span></span></img>
+		<hr />
+		<div class="Businessx">
+			<div >
+				<img src="static/img/jbxx01@2x_31.png" style="width:4rem;height:4rem;float:left;margin-left: 0.5rem;">
+				<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">kaiselin</p>
+				<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">好热闹啊，好热闹，好热闹</p>
+			</div>
+			<div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">
+				<div>
+					<p style="display:inline-block;color: #007AFF;">Wesss:</p>
+					<span >是的，xxxxxx</span>
+				</div>
+				<div>
+					<p style="display:inline-block;color: #007AFF;">Nsmjrk:</p>
+					<span >丰富多彩</span>
+				</div>
+				<div>
+					<p style="display:inline-block;color: #007AFF;">Gbnh:</p>
+					<span >城市套路深</span>
+				</div>
+			</div>
+			<span style="color: #9c9898;padding-left: 50px;">3-22 20:59</span>
+			<img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>
+		</div>
+		<hr />
+		<div class="Businessx">
+			<div >
+				<img src="static/img/jbxx01@2x_31.png" style="width:4rem;height:4rem;float:left;margin-left: 0.5rem;">
+				<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">kaiselin</p>
+				<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">好热闹啊，好热闹，好热闹</p>
+			</div>
+			<div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">
+				<div>
+					<p style="display:inline-block;color: #007AFF;">Wesss:</p>
+					<span >是的，xxxxxx</span>
+				</div>
+				<div>
+					<p style="display:inline-block;color: #007AFF;">Nsmjrk:</p>
+					<span >丰富多彩</span>
+				</div>
+				<div>
+					<p style="display:inline-block;color: #007AFF;">Gbnh:</p>
+					<span >城市套路深</span>
+				</div>
+			</div>
+			<span style="color: #9c9898;padding-left: 50px;">3-22 20:59</span>
+			<img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>
+		</div>
+	</div>
+	
+	
+		
+		
+		
+	
+	
+	
+	
+	
+			
+	<div class="forder">
+		<ul>
+			<!--<li><a class="ror_1 " href="index.html" >首页</a></li>-->
+			<li><a class="ror_2 acver" href="article.html">资讯</a></li>
+			<li><a class="ror_3" href="message.html">消息</a></li>
+			<li><a class="ror_4" href="perCenter.html">我的</a></li>
+		</ul>
+	</div>				
+</body>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layui/layui.js"></script>
+<script src="static/js/js.js"></script>
+
+<script>
+layui.use('flow', function(){
+  var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+  var flow = layui.flow;
+  flow.load({
+    elem: '#LAY_demo1' //指定列表容器
+    ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+
+     // var lis = [];
+//      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+//      $.get('/api/list?page='+page, function(res){
+//        //假设你的列表返回在data集合中
+//        layui.each(res.data, function(index, item){
+//          lis.push('<a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p></a>');
+//        }); 
+//        
+//        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+//        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+//        next(lis.join(''), page < res.pages);    
+//      });
+
+       setTimeout(function(){
+        var lis = [];
+        for(var i = 0; i < 4; i++){
+          lis.push('<a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p></a>')
+        }
+        
+        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+        next(lis.join(''), page < 4); //假设总页数为 4
+      }, 500);
+
+     
+    }
+  });
+});	
+$('body').on('click','.toEvaluate',function(){
+	location.href = 'evaluate.html';	
+})
+
+$('body').on('click','.reply',function(){
+	location.href = 'reply.html';	
+})
+
+function doLikenum(articleid) {
+    var postData = {"articleid":articleid};
+    $.ajax({
+                 url: ctxApp+"/evaluateController/doLikenum",
+                 dataType: 'json',
+                 data:postData,
+                 method: 'POST',
+                 async: false,//使用同步的方式,true为异步方式
+                 success: function(data) {
+                	 var likenum = data.likenum;
+                	 $("#likenum").val(likenum);
+                }
+        });
+    
+}
+
+</script>
+</html>

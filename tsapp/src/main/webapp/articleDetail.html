@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+		<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>多用户</title>
+		
+		<link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/swiper.min.css">
+    <link rel="stylesheet" href="static/css/css.css">
+    <script>
+        (function(global){
+            function remChange(){
+                document.documentElement.style.fontSize=20*document.documentElement.clientWidth/1024+'px';
+            }
+            remChange();
+            global.addEventListener('resize',remChange,false);
+        })(window);
+</script>
+
+	</head>
+    
+<body>
+	<div class="app_hend">
+		   资讯
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="img/sy_icon01.png"></a>
+	</div>
+	<div class="page_content">
+		 <div class="Scenic">
+		 	 <a class="spot">
+		 	 	<h2 id="title"></h2>
+		 	 	<div class="swiper-container orderp">
+				        <div class="swiper-wrapper">
+<!-- 				            <div class="swiper-slide"><img src="img/zx@2x.png" width="100%" /></div> -->
+				            <div class="swiper-slide"><img src="img/zx@2x.png" width="100%" id="imgurl"/></div>
+				        </div>
+				        <!-- Add Pagination -->
+				        <div class="swiper-pagination"></div>
+				        <!-- Add Arrows -->
+				        <div class="swiper-button-next"></div>
+				        <div class="swiper-button-prev"></div>
+				   </div>
+				   <div id="articlecontent"></div>
+		 	 </a>
+		 	 
+		 </div>
+	</div>
+			
+	<div class="forder">
+		<ul>
+			<li><a class="ror_1" href="index.html" >首页</a></li>
+			<li><a class="ror_2 acver" href="article.html">资讯</a></li>
+			<li><a class="ror_3" href="指南.html">指南</a></li>
+			<li><a class="ror_4" href="perCenter.html">我的</a></li>
+		</ul>
+	</div>				
+</body>
+<script src="js/jquery-1.10.1.min.js"></script>
+<script src="js/js.js"></script>
+<!-- Swiper JS -->
+<script src="static/js/swiper.min.js"></script>
+<!-- Initialize Swiper -->
+<script>
+var swiper = new Swiper('.swiper-container', {
+nextButton: '.swiper-button-next',
+prevButton: '.swiper-button-prev',
+pagination: '.swiper-pagination',
+paginationType: 'fraction'
+});
+
+
+$(document).ready(function(){
+	doGetInfo();
+	});
+	
+function doGetInfo() {
+    var articleid = getQueryString("articleid");
+    
+    $.ajax({
+                 url: ctxApp+"/articleController/get?articleid="+articleid,
+                 dataType: 'json',
+                 data:postData,
+                 method: 'POST',
+                 async: false,//使用同步的方式,true为异步方式
+                 success: function(data) {
+                	 $("#title").val(data.title);
+                	 $("#articlecontent").val(data.articlecontent);
+                	 $("#imgurl").attr("src",data.imgurl);
+                }
+        });
+    
+}
+
+</script>
+
+
+</html>

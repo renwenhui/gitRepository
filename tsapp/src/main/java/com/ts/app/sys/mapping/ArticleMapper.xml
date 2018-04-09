@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ts.app.sys.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.ts.app.sys.domain.Article">
+    <id column="articleId" jdbcType="INTEGER" property="articleid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="imgUrl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="likeNum" jdbcType="INTEGER" property="likenum" />
+    <result column="evaluateNum" jdbcType="INTEGER" property="evaluatenum" />
+    <result column="createUserId" jdbcType="INTEGER" property="createuserid" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updateUserId" jdbcType="INTEGER" property="updateuserid" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="deleteFlag" jdbcType="CHAR" property="deleteflag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ts.app.sys.domain.Article">
+    <result column="articleContent" jdbcType="LONGVARCHAR" property="articlecontent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    articleId, title, imgUrl, likeNum, evaluateNum, createUserId, createDate, updateUserId, 
+    updateDate, deleteFlag
+  </sql>
+  <sql id="Blob_Column_List">
+    articleContent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where articleId = #{articleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where articleId = #{articleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ts.app.sys.domain.Article">
+    insert into article (articleId, title, imgUrl, 
+      likeNum, evaluateNum, createUserId, 
+      createDate, updateUserId, updateDate, 
+      deleteFlag, articleContent)
+    values (#{articleid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
+      #{likenum,jdbcType=INTEGER}, #{evaluatenum,jdbcType=INTEGER}, #{createuserid,jdbcType=INTEGER}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{updateuserid,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, 
+      #{deleteflag,jdbcType=CHAR}, #{articlecontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ts.app.sys.domain.Article">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleid != null">
+        articleId,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="imgurl != null">
+        imgUrl,
+      </if>
+      <if test="likenum != null">
+        likeNum,
+      </if>
+      <if test="evaluatenum != null">
+        evaluateNum,
+      </if>
+      <if test="createuserid != null">
+        createUserId,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="updateuserid != null">
+        updateUserId,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="deleteflag != null">
+        deleteFlag,
+      </if>
+      <if test="articlecontent != null">
+        articleContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleid != null">
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="likenum != null">
+        #{likenum,jdbcType=INTEGER},
+      </if>
+      <if test="evaluatenum != null">
+        #{evaluatenum,jdbcType=INTEGER},
+      </if>
+      <if test="createuserid != null">
+        #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null">
+        #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        #{deleteflag,jdbcType=CHAR},
+      </if>
+      <if test="articlecontent != null">
+        #{articlecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ts.app.sys.domain.Article">
+    update article
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgUrl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="likenum != null">
+        likeNum = #{likenum,jdbcType=INTEGER},
+      </if>
+      <if test="evaluatenum != null">
+        evaluateNum = #{evaluatenum,jdbcType=INTEGER},
+      </if>
+      <if test="createuserid != null">
+        createUserId = #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null">
+        updateUserId = #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        deleteFlag = #{deleteflag,jdbcType=CHAR},
+      </if>
+      <if test="articlecontent != null">
+        articleContent = #{articlecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where articleId = #{articleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ts.app.sys.domain.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      likeNum = #{likenum,jdbcType=INTEGER},
+      evaluateNum = #{evaluatenum,jdbcType=INTEGER},
+      createUserId = #{createuserid,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateUserId = #{updateuserid,jdbcType=INTEGER},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=CHAR},
+      articleContent = #{articlecontent,jdbcType=LONGVARCHAR}
+    where articleId = #{articleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ts.app.sys.domain.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      likeNum = #{likenum,jdbcType=INTEGER},
+      evaluateNum = #{evaluatenum,jdbcType=INTEGER},
+      createUserId = #{createuserid,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateUserId = #{updateuserid,jdbcType=INTEGER},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=CHAR}
+    where articleId = #{articleid,jdbcType=INTEGER}
+  </update>
+
+  
+  <select id="queryListArticle" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    
+    where exists
+    
+    (select 1 from user where  userType=#{userType,jdbcType=INTEGER})
+  </select>
+  
+   <select id="queryListArticle2" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    
+    where exists
+    
+    (select 1 from user where  userType=#{userType,jdbcType=INTEGER})
+   
+  </select>
+  
+</mapper>
