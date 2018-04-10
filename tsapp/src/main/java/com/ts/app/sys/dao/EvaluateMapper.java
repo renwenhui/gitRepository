@@ -19,4 +19,6 @@ public interface EvaluateMapper {
     int updateByPrimaryKey(Evaluate record);
     
     public List<Evaluate> queryListByArticeId(Map<String, Object> filterMap) ;
+    
+    public List queryListByArticeId2(Map<String, Object> filterMap) ;
 }
