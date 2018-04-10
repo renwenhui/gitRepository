@@ -26,7 +26,7 @@
 		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
 	</div>
 	<div style="padding-top: 8rem;">
-	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 5px;"><span>评价 0</span></img>
+	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 5px;"><span id="evaluatenum">评价 0</span></img>
 		<img  class="like" src="static/img/xi02@2xx.png" style="width:15px;height: 15px; margin-left: 30px;margin-right: 5px;" onclick="doLikenum(1)"><span>点赞 <span id="likenum">0</span></span></img>
 		<hr />
 		<div id="LAY_demo1">
@@ -121,6 +121,8 @@ layui.use('flow', function(){
     	       //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
     	       //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
     	       next(lis.join(''), page < 1);    //默认显示一页
+    	       
+    	       doLoad();
     	     });
     	 
 
@@ -147,6 +149,26 @@ function doLikenum(articleid) {
                  success: function(data) {
                 	 var likenum = data.likenum;
                 	 $("#likenum").val(likenum);
+                }
+        });
+    
+}
+
+
+function doLoad() {
+	var articleid = getQueryString("articleid");
+    var postUrl = ctxApp+"/articleController/get?articleid="+articleid;
+    $.ajax({
+                 url: postUrl,
+                 dataType: 'json',
+                 method: 'POST',
+                 async: false,  
+                 cache: false,  
+                 contentType: false,  
+                 processData: false, 
+                 success: function(data) {
+                	 $("#evaluatenum").val("评价"+data.evaluatenum);
+                	 $("#likenum").val(data.likenum);
                 }
         });
     
