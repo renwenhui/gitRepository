@@ -86,6 +86,17 @@ $('body').on('click','.like',function(){
 	    $(this).addClass('j')
 	}		
 }) 
+
+/*注册协议*/
+$('.Coupon').click(function(){
+ layer.open({
+    type: 1
+    ,className: 'amst'
+    ,content: $('#oimyt').html()
+    ,anim: 'up'
+    ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 100%; padding:10px; border:none; box-sizing: border-box; overflow: auto;'
+  });
+})
 	 
 
 

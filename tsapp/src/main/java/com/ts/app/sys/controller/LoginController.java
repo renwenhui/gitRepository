@@ -60,6 +60,7 @@ public class LoginController{
 	        token.setRememberMe(true);  
 	        try {
 	            subject.login(token);
+	            result = true;
 	        } catch (UnknownAccountException e) {  
 	            errorMessage = "用户名或者密码不正确";  
 	        } catch (IncorrectCredentialsException e) {  

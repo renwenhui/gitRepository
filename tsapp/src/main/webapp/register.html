@@ -154,7 +154,6 @@ $("#save").click(function(){
    		return;
    	}
    	
-   	alert("111");
 	var formData = new FormData($("#addUserForm" )[0]);
     $.ajax({  
           url: ctxApp+'/userReg', 
@@ -169,7 +168,7 @@ $("#save").click(function(){
         	  if(data.success){
         		  layer.msg(data.msg);
         		  setTimeout(function(){
-        			  location.href = 'article.html'; 
+        			  location.href = 'login.html'; 
 				  }, 500);
 				  
 			  }else{
