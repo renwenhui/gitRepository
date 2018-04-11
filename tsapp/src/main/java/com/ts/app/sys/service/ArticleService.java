@@ -32,4 +32,10 @@ public interface ArticleService {
 	 */
     public List<Article> listPingjia(Map<String,Object> filterMap);
     
+    /**
+	 * 我回复的评价，评价对应的帖子
+	 * @return
+	 */
+      public List<Article> listReply(Map<String,Object> filterMap);
+    
 }

@@ -24,5 +24,15 @@ public interface ArticleMapper {
 	
 	public List<Article> queryListArticle2(Map<String, Object> filterMap) ;
 	
+	 /**
+		 * 我的发布的帖子，有未读的评价
+		 * @return
+		 */
 	public List<Article> listPingjia(Map<String, Object> filterMap) ;
+	
+	/**
+	 * 我回复的评价，评价对应的帖子
+	 * @return
+	 */
+	public List<Article> listReply(Map<String, Object> filterMap) ;
 }

@@ -66,4 +66,13 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleMapper.listPingjia(filterMap);
 	}
 	
+	/**
+	 * 我回复的评价，评价对应的帖子
+	 * @return
+	 */
+	@Override
+	public List<Article> listReply(Map<String, Object> filterMap) {
+		return articleMapper.listReply(filterMap);
+	}
+	
 }
