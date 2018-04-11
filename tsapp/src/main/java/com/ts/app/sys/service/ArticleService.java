@@ -24,4 +24,12 @@ public interface ArticleService {
     public List<Article> queryListArticle(Map<String,Object> filterMap);
     
     public List<Article> queryListArticle2(Map<String,Object> filterMap);
+    
+    
+    /**
+	 * 我的发布的帖子，有未读的评价
+	 * @return
+	 */
+    public List<Article> listPingjia(Map<String,Object> filterMap);
+    
 }

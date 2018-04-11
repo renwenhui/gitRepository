@@ -57,5 +57,16 @@ public class EvaluateServiceImpl implements EvaluateService {
 	public List queryListByArticeId2(Map<String, Object> filterMap) {
 		return evaluateMapper.queryListByArticeId2(filterMap);
 	}
+
+
+	@Override
+	public Integer getMyUnRead(Map<String, Object> filterMap) {
+		return evaluateMapper.getMyUnRead(filterMap);
+	}
+
+	@Override
+	public Integer getMyUnReadReply(Map<String, Object> filterMap) {
+		return evaluateMapper.getMyUnReadReply(filterMap);
+	}
 	
 }

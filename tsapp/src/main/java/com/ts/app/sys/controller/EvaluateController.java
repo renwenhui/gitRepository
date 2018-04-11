@@ -50,4 +50,30 @@ public class EvaluateController extends BaseController {
 		
 		return retMap;
 	}
+	
+	/**
+	 * 获得我的未读取的评价消息(我发布的帖子)
+	 * @param articleid
+	 * @return
+	 */
+	@RequestMapping("/evaluateController/getMyUnRead")
+	@ResponseBody
+	public Map<String,Object> getMyUnRead(){
+		Integer createuserid = getLoginUid();
+		Map<String,Object> filterMap = new HashMap<String,Object>();
+		filterMap.put("createuserid", createuserid);
+		
+		Integer  MyUnReadCount= 	evaluateService.getMyUnRead(filterMap);
+		
+		Integer  getMyUnReadReply= 	evaluateService.getMyUnReadReply(filterMap);
+		
+		
+		Map<String,Object> retMap = new HashMap<String,Object>();
+		retMap.put("MyUnReadCount", MyUnReadCount);
+		retMap.put("getMyUnReadReply", getMyUnReadReply);
+		retMap.put("flag", "1");
+		
+		return retMap;
+	}
+	
 }

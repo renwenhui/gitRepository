@@ -60,5 +60,10 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> queryListArticle2(Map<String,Object> filterMap){
 		return articleMapper.queryListArticle2(filterMap);
 	}
+
+	@Override
+	public List<Article> listPingjia(Map<String, Object> filterMap) {
+		return articleMapper.listPingjia(filterMap);
+	}
 	
 }

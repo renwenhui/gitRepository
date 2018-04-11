@@ -23,4 +23,6 @@ public interface ArticleMapper {
 	public List<Article> queryListArticle(Map<String, Object> filterMap) ;
 	
 	public List<Article> queryListArticle2(Map<String, Object> filterMap) ;
+	
+	public List<Article> listPingjia(Map<String, Object> filterMap) ;
 }

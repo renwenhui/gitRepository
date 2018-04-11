@@ -78,6 +78,21 @@ public class ArticleCotroller extends BaseController{
 		return articleList;
 	}
 	
+	/**
+	 * 我的发布的帖子，有未读的评价
+	 * @return
+	 */
+	@RequestMapping("/articleController/listPingjia")
+	@ResponseBody
+	public List<Article> listPingjia(){
+			Map<String,Object> filterMap = new HashMap<String,Object>();
+			Integer createuserid = getLoginUid();
+			filterMap.put("createuserid", createuserid);
+			List<Article>  articleList= 	articleService.listPingjia(filterMap);
+		return articleList;
+	}
+	
+	
 	@RequestMapping("/articleController/doInsert")
 	@ResponseBody
 	public Map<String,String> doInster(Article article){

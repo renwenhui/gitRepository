@@ -21,4 +21,8 @@ public interface EvaluateMapper {
     public List<Evaluate> queryListByArticeId(Map<String, Object> filterMap) ;
     
     public List queryListByArticeId2(Map<String, Object> filterMap) ;
+    
+    public Integer getMyUnRead(Map<String, Object> filterMap) ;
+    
+    public Integer getMyUnReadReply(Map<String, Object> filterMap) ;
 }
