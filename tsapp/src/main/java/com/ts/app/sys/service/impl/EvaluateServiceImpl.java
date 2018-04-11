@@ -53,4 +53,9 @@ public class EvaluateServiceImpl implements EvaluateService {
 		return evaluateMapper.queryListByArticeId(filterMap);
 	}
 	
+	@Override
+	public List queryListByArticeId2(Map<String, Object> filterMap) {
+		return evaluateMapper.queryListByArticeId2(filterMap);
+	}
+	
 }

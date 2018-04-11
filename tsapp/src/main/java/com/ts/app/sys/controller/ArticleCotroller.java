@@ -230,4 +230,5 @@ public class ArticleCotroller extends BaseController{
 		
 		return new Article();
 	}
+	
 }

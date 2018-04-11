@@ -24,10 +24,10 @@ public class EvaluateController extends BaseController {
 
 	@RequestMapping("/evaluateController/list")
 	@ResponseBody
-	public List<Evaluate> list(Integer articleid){
+	public List list(Integer articleid){
 		Map<String,Object> filterMap = new HashMap<String,Object>();
 		filterMap.put("articleid", articleid);
-		 List<Evaluate>  articleList= 	evaluateService.queryListByArticeId(filterMap);
+		 List  articleList= 	evaluateService.queryListByArticeId2(filterMap);
 		return articleList;
 	}
 	
