@@ -26,10 +26,11 @@
 		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
 	</div>
 	<div style="padding-top: 8rem;">
-	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 5px;"><span>评价 0</span></img>
+	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 5px;"><span id="evaluatenum">评价 0</span></img>
 		<img  class="like" src="static/img/xi02@2xx.png" style="width:15px;height: 15px; margin-left: 30px;margin-right: 5px;" onclick="doLikenum(1)"><span>点赞 <span id="likenum">0</span></span></img>
 		<hr />
-		<div class="Businessx">
+		<div id="LAY_demo1">
+		<!-- <div class="Businessx">
 			<div >
 				<img src="static/img/jbxx01@2x_31.png" style="width:4rem;height:4rem;float:left;margin-left: 0.5rem;">
 				<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">kaiselin</p>
@@ -51,42 +52,12 @@
 			</div>
 			<span style="color: #9c9898;padding-left: 50px;">3-22 20:59</span>
 			<img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>
+		</div> -->
+		
 		</div>
+		
 		<hr />
-		<div class="Businessx">
-			<div >
-				<img src="static/img/jbxx01@2x_31.png" style="width:4rem;height:4rem;float:left;margin-left: 0.5rem;">
-				<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">kaiselin</p>
-				<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">好热闹啊，好热闹，好热闹</p>
-			</div>
-			<div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">
-				<div>
-					<p style="display:inline-block;color: #007AFF;">Wesss:</p>
-					<span >是的，xxxxxx</span>
-				</div>
-				<div>
-					<p style="display:inline-block;color: #007AFF;">Nsmjrk:</p>
-					<span >丰富多彩</span>
-				</div>
-				<div>
-					<p style="display:inline-block;color: #007AFF;">Gbnh:</p>
-					<span >城市套路深</span>
-				</div>
-			</div>
-			<span style="color: #9c9898;padding-left: 50px;">3-22 20:59</span>
-			<img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>
-		</div>
 	</div>
-	
-	
-		
-		
-		
-	
-	
-	
-	
-	
 			
 	<div class="forder">
 		<ul>
@@ -109,29 +80,51 @@ layui.use('flow', function(){
     elem: '#LAY_demo1' //指定列表容器
     ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
 
-     // var lis = [];
-//      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-//      $.get('/api/list?page='+page, function(res){
-//        //假设你的列表返回在data集合中
-//        layui.each(res.data, function(index, item){
-//          lis.push('<a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p></a>');
-//        }); 
-//        
-//        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-//        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-//        next(lis.join(''), page < res.pages);    
-//      });
-
-       setTimeout(function(){
-        var lis = [];
-        for(var i = 0; i < 4; i++){
-          lis.push('<a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p></a>')
-        }
-        
-        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-        next(lis.join(''), page < 4); //假设总页数为 4
-      }, 500);
+    	 var lis = [];
+    	    var articleid = getQueryString("articleid");
+    	    $.get(ctxApp+'/evaluateController/list?articleid='+articleid, function(data){
+    	       //假设你的列表返回在data集合中
+    	       layui.each(data, function(index, item){
+    	           var articleid = item.articleid;
+    	           
+    	           var evaluateId = item.evaluateId;
+    	           var evaluateContent = item.evaluateContent;
+    	           var createDate = fmtDate(item.createDate);
+    	           var userNameA = item.userNameA==undefined?"":item.userNameA;
+    	           var userNameB = item.userNameB==undefined?"":item.userNameB;
+    	           var repayContent = item.repayContent;
+    	           var headUrl = item.headUrl;
+    	           
+    	          var msg = ' <div class="Businessx">';
+    	          msg = msg + "<div >";
+    	          msg = msg + '<img src='+headUrl+'  style="width:4rem;height:4rem;float:left;margin-left: 0.5rem;">';
+    	          msg = msg + '<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">'+userNameA+'</p>';
+    	          msg = msg + '<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">'+evaluateContent+'</p>';
+    	          msg = msg + "</div>";  
+    	          
+    	          msg = msg + '  <div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">'; 
+    	          msg = msg + '  <div>'; 
+    	          msg = msg + '  <p style="display:inline-block;color: #007AFF;">'+userNameA+'</p>';
+    	          msg = msg + '  <span >'+repayContent+'</span>';
+    	            
+    	          msg = msg + '   </div>'; 
+    	          msg = msg + '  </div>'; 
+    	          
+    	          msg = msg + '   <span style="color: #9c9898;padding-left: 50px;">'+createDate+'</span>'; 
+    	          msg = msg + '   <img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>'; 
+    	          msg = msg + '   </div>';  
+    	        
+    	           var putMsg = msg;
+    	         lis.push(putMsg);
+    	       }); 
+    	       
+    	       //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+    	       //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+    	       next(lis.join(''), page < 1);    //默认显示一页
+    	       
+    	       doLoad();
+    	     });
+    	 
 
      
     }
@@ -141,8 +134,8 @@ $('body').on('click','.toEvaluate',function(){
 	location.href = 'evaluate.html';	
 })
 
-$('body').on('click','.reply',function(){
-	location.href = 'reply.html';	
+$('body').on('click','.reply',function(evaluateId){
+	location.href = 'reply.html?evaluateId='+evaluateId;	
 })
 
 function doLikenum(articleid) {
@@ -156,6 +149,26 @@ function doLikenum(articleid) {
                  success: function(data) {
                 	 var likenum = data.likenum;
                 	 $("#likenum").val(likenum);
+                }
+        });
+    
+}
+
+
+function doLoad() {
+	var articleid = getQueryString("articleid");
+    var postUrl = ctxApp+"/articleController/get?articleid="+articleid;
+    $.ajax({
+                 url: postUrl,
+                 dataType: 'json',
+                 method: 'POST',
+                 async: false,  
+                 cache: false,  
+                 contentType: false,  
+                 processData: false, 
+                 success: function(data) {
+                	 $("#evaluatenum").val("评价"+data.evaluatenum);
+                	 $("#likenum").val(data.likenum);
                 }
         });
     
