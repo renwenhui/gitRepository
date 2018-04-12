@@ -60,5 +60,19 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> queryListArticle2(Map<String,Object> filterMap){
 		return articleMapper.queryListArticle2(filterMap);
 	}
+
+	@Override
+	public List<Article> listPingjia(Map<String, Object> filterMap) {
+		return articleMapper.listPingjia(filterMap);
+	}
+	
+	/**
+	 * 我回复的评价，评价对应的帖子
+	 * @return
+	 */
+	@Override
+	public List<Article> listReply(Map<String, Object> filterMap) {
+		return articleMapper.listReply(filterMap);
+	}
 	
 }

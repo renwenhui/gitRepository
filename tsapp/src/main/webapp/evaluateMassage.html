@@ -63,30 +63,28 @@ layui.use('flow', function(){
     elem: '#LAY_demo1' //指定列表容器
     ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
 
-     // var lis = [];
-//      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-//      $.get('/api/list?page='+page, function(res){
-//        //假设你的列表返回在data集合中
-//        layui.each(res.data, function(index, item){
-//          lis.push('<a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p></a>');
-//        }); 
-//        
-//        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-//        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-//        next(lis.join(''), page < res.pages);    
-//      });
+    	var lis = [];
 
-       setTimeout(function(){
-        var lis = [];
-        for(var i = 0; i < 4; i++){
-          lis.push('<div class="spot"><a href="articleDetail.html" class="spot"><b><img src="img/zx@2x.png" /></b><h3>三亚大东海</h3><p>大东海位于三亚市的榆林港和鹿回头之间，是三亚最早被开发的热带滨海度假区，也是离市区最近的海湾...</p><hr /></a><img class="evaluate " src="img/ggg.png" style="width:1.5rem;height: 1.5rem;margin-left: 1rem;margin-right: 0.5rem;"><span>评价</span></img><img class="like " src="img/xi02@2xx.png" style="width:1.5rem;height: 1.5rem; margin-left: 3rem;margin-right: 0.5rem;"><span>点赞</span></img></div>')
-        }
-        
-        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-        next(lis.join(''), page < 4); //假设总页数为 4
-      }, 500);
-
+        $.get(ctxApp+'/articleController/listPingjia?page='+page, function(data){
+           //假设你的列表返回在data集合中
+           layui.each(data, function(index, item){
+               var articleid = item.articleid;
+               
+               var title = item.title;
+               var imgurl = item.imgurl;
+               var likenum = item.likenum;
+               var evaluatenum = item.evaluatenum;
+               var articlecontent  = item.articlecontent;
+               
+               var putMsg = '<a href="articleDetail.html?articleid="'+articleid+' class="spot"><b><img src='+imgurl+' /></b><h3>'+title+'</h3><p>'+articlecontent+'</p><hr /></a>';
+             lis.push(putMsg);
+           }); 
+           
+           //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+           //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+           next(lis.join(''), page < 1);    //默认显示一页
+         });
+     
      
     }
   });
