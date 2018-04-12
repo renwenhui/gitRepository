@@ -9,9 +9,9 @@
 		<meta content="telephone=no" name="format-detection" />
 		<title>多用户</title>
 	</head>
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="css/swiper.min.css">
-	<link rel="stylesheet" href="css/css.css">
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/swiper.min.css">
+	<link rel="stylesheet" href="static/css/css.css">
 	<script>
 		(function(global){
 			function remChange(){
@@ -47,7 +47,43 @@
    
 			
 </body>
-<script src="js/jquery-1.10.1.min.js"></script>
-<script src="layer/layer.js"></script>
-<script src="js/js.js"></script>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script src="static/js/js.js"></script>
+<script type="text/javascript">
+//修改手机号
+function changePhone(obj) {
+	var phone = $(obj).parents(".enction_cont").find("#newPhone").val();
+	var userId='${user.userId}';
+	if (!checkPhone(phone,"新手机号")) return;
+	$.ajax({
+            url: '${ctx}/updateUser',
+            data: {
+            	'phone' : phone,
+            	'userId' : userId
+            },
+            type: "POST",
+            dataType: "json",
+            success: function(data){
+                if(data.success){
+                	layer.msg(data.msg);
+				 	 setTimeout(function(){
+					   location.href = '${ctx}/findUserDetail';
+					}, 500);
+					
+                }else{
+        	    	layer.msg(data.msg);
+                }
+            },
+            error: function(data){
+                try {
+      	    		layer.msg("请求异常");
+                	return false;
+                }catch (e) {
+                	console.log(e);
+                }
+            }
+    });
+}
+</script>
 </html>
