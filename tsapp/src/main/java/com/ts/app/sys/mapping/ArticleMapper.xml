@@ -208,4 +208,28 @@
    
   </select>
   
+  <select id="listPingjia" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
+    select 
+     a.articleId, a.title, a.imgUrl, a.likeNum, a.evaluateNum, a.createUserId, a.createDate, a.updateUserId, 
+    a.updateDate, a.deleteFlag,a.articleContent
+    from article a,  evaluate e
+    where  a.articleId=e.articleId
+    and  a.createUserId=#{createUserId,jdbcType=INTEGER}
+    and e.isReaded=0
+    
+  </select>
+  
+  <select id="listReply" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
+    select 
+     a.articleId, a.title, a.imgUrl, a.likeNum, a.evaluateNum, a.createUserId, a.createDate, a.updateUserId, 
+    a.updateDate, a.deleteFlag,a.articleContent
+    from article a,  evaluate e, reply r 
+    where  a.articleId=e.articleId
+    and r.evaluateId=e.evaluateId
+    
+    and  e.createUserId=#{createUserId,jdbcType=INTEGER}
+    and r.isReaded=0
+    
+  </select>
+  
 </mapper>

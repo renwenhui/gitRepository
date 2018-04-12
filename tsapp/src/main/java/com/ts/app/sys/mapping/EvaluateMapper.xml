@@ -164,5 +164,25 @@
     
   </select>
   
+  <select id="getMyUnRead" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+    select 
+     count(1)
+    from evaluate e, article a
+    
+    where e.articleId = a.articleId
+    and a.createUserId=#{createUserId,jdbcType=INTEGER}
+    and e.isReaded=0
+  </select>
+  
+  <select id="getMyUnReadReply" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+    select 
+     count(1)
+    from evaluate e, reply a
+    
+    where e.evaluateId = a.evaluateId
+    and e.createUserId=#{createUserId,jdbcType=INTEGER}
+    and a.isReaded=0
+  </select>
+  
   
 </mapper>

@@ -78,6 +78,35 @@ public class ArticleCotroller extends BaseController{
 		return articleList;
 	}
 	
+	/**
+	 * 我的发布的帖子，有未读的评价
+	 * @return
+	 */
+	@RequestMapping("/articleController/listPingjia")
+	@ResponseBody
+	public List<Article> listPingjia(){
+			Map<String,Object> filterMap = new HashMap<String,Object>();
+			Integer createuserid = getLoginUid();
+			filterMap.put("createuserid", createuserid);
+			List<Article>  articleList= 	articleService.listPingjia(filterMap);
+		return articleList;
+	}
+	
+	/**
+	 * 我回复的评价，评价对应的帖子
+	 * @return
+	 */
+	@RequestMapping("/articleController/listReply")
+	@ResponseBody
+	public List<Article> listReply(){
+			Map<String,Object> filterMap = new HashMap<String,Object>();
+			Integer createuserid = getLoginUid();
+			filterMap.put("createuserid", createuserid);
+			List<Article>  articleList= 	articleService.listReply(filterMap);
+		return articleList;
+	}
+	
+	
 	@RequestMapping("/articleController/doInsert")
 	@ResponseBody
 	public Map<String,String> doInster(Article article){
