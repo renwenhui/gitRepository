@@ -27,6 +27,9 @@
 	    <if test="userName != null and userName !='' ">  
 	       	and u.userName = #{userName} 
 	   	</if>
+	    <if test="phone != null and phone !='' ">  
+	       	and u.phone = #{phone} 
+	   	</if>
 	</select>
 	
 	<!-- 插入用户返回主键userId -->
@@ -95,4 +98,36 @@
 	      	now()
 	  </trim>
 	</insert>
+	
+	<select id="findUserDetailById" resultType="user">
+		select 
+			<include refid="Base_Column_List"/>
+		from
+			user u
+		where u.userId = #{userId}
+	</select>
+	
+	<update id="updateUserById">
+		update user set
+		<if test="password != null and password != '' ">
+			password = #{password},
+		</if>
+		<if test="salt != null and salt != '' ">
+			salt = #{salt},
+		</if>
+		<if test="userName != null and userName != ''  ">
+			userName = #{userName},
+		</if>		
+		<if test="phone != null and phone != '' ">
+			phone = #{phone},
+		</if>		
+		<if test="headUrl != null ">
+			headUrl = #{headUrl},
+		</if>
+		<if test="delFlag != null ">
+			delFlag = #{delFlag},
+		</if>
+			updateDate = now()
+		where userId = #{userId}
+	</update>
 </mapper>

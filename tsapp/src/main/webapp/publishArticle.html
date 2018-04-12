@@ -20,7 +20,27 @@
             remChange();
             global.addEventListener('resize',remChange,false);
         })(window);
-</script>
+	</script>
+	<style type="text/css">
+		.business_headIcon1>div {
+		display: inline-block;
+		width: 50rem;
+		height: 30rem;
+		}
+	
+		.business_headIcon1 input[type=file] {
+			position: absolute;
+			border-radius: 5rem;
+			opacity: 0;
+			cursor: pointer;
+			width: 50rem;
+			height: 30rem;
+		}
+		.business_headIcon1 img {
+			width: 50rem;
+			height: 30rem;
+		}
+	</style>
 
 	</head>
     
@@ -50,16 +70,17 @@
 		   		 	<textarea id="articlecontent" name="articlecontent"></textarea>
 		   		 </div>
 		   	</div>
-		   	<div class="webluate_cont">
+		   	<div class="webluate_cont ">
 		   		 <div class="webluate_left1">
 		   		 	图片 ：
 		   		 </div>
-		   		 <div class="webluate_right1">
+		   		 <div class="webluate_right1 business_headIcon1" >
 		   		 	
 			 	   <!--  <div id="upload" class="niopent">
 		   		   </div> -->
 		   		   <input type="file" name="file"  id="file" accept="image/jpg,image/jpeg,image/png" value="" class="upload"/>
-		   	</div>
+		   		  <img id="img1" src="${ctx}/static/img/zcsj01.png" alt="" style="width:30rem;height:25rem;"/> 
+		   		</div>
 		   	
 		   	
 		</div>
@@ -117,18 +138,26 @@ function doSubmit() {
 	var postUrl = ctxApp+"/articleController/upphoto";
 	alert(postUrl);
 	$.ajax({
-                 url: postUrl,
-                 dataType: 'json',
-                 data:formData,
-                 method: 'POST',
-                 async: false,  
-                 cache: false,  
-                 contentType: false,  
-                 processData: false, 
-                 success: function(data) {
-                	 layer.msg(data.msg);
-                }
-	    });
+	    url: postUrl,
+	    dataType: 'json',
+	    data:formData,
+	    method: 'POST',
+	    async: false,  
+	    cache: false,  
+	    contentType: false,  
+	    processData: false, 
+	    success: function(data){
+			layer.msg(data.msg);
+        },
+        error: function(data){
+            try {
+  	    		layer.msg("请求异常");
+            	return false;
+            }catch (e) {
+            	console.log(e);
+            }
+        }
+	});
 	
 }
 

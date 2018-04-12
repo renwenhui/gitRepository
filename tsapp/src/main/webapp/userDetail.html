@@ -48,7 +48,7 @@
 			 	 <div class="oastic_lo_left2">
 			 	 	  名称 ：
 			 	 </div>
-			 	 <div class="oastic_lo_right4">
+			 	 <div class="oastic_lo_right4" id="userName">
 			 	 	  大奥
 			 	 </div>
 			 </div>
@@ -56,7 +56,7 @@
 			 	 <div class="oastic_lo_left2">
 			 	 	  性别 ：
 			 	 </div>
-			 	 <div class="oastic_lo_right4">
+			 	 <div class="oastic_lo_right4" id="sex">
 			 	 	  xx
 			 	 </div>
 			 </div>
@@ -64,7 +64,7 @@
 			 	 <div class="oastic_lo_left2">
 			 	 	 邮箱号 ：
 			 	 </div>
-			 	 <div class="oastic_lo_right4">
+			 	 <div class="oastic_lo_right4" id="email">
 			 	 	  798844081@qq.com
 			 	 </div>
 			 </div>
@@ -72,20 +72,10 @@
 			 	 <div class="oastic_lo_left2">
 			 	 	 手机号 ：
 			 	 </div>
-			 	 <div class="oastic_lo_right3">
+			 	 <div class="oastic_lo_right3" id="phone">
 			 	 	  1365242536
 			 	 </div>
 			 </a>
-			 <!--<a class="oastic_cont_1">
-			 	 <div class="oastic_lo_left2">
-			 	 	 邮箱 ：
-			 	 </div>
-			 	 <div class="oastic_lo_right3">
-			 	 	  199056611111@qq.com
-			 	 </div>
-			 </a>-->
-			 
-			
 		</div>
 		
 	</div>
@@ -96,6 +86,35 @@
 <script src="static/layer/layer.js"></script>
 <script src="static/js/js.js"></script>
 <script type="text/javascript">
+$(function(){
+	//查询用户详情
+	$.ajax({
+        url: ctxApp+'/findUserDetail',
+        type: "POST",
+        dataType: "json",
+        success: function(data){
+              if(data.success){
+             	$("#userName").text(data.user.userName);
+             	$("#sex").text(data.user.sex);
+             	$("#email").text(data.user.email);
+             	$("#phone").text(data.user.phone);
+             	
+             	$("#phone").parent().attr("href","changePhone.html?useId="+data.user.userId);
+              }else{
+      	    	layer.msg(data.msg);
+              }
+          },
+          error: function(data){
+              try {
+    	    		layer.msg("请求异常");
+              	return false;
+              }catch (e) {
+              	console.log(e);
+              }
+          }
+    	});
+	
+	
   function preview(file) {
     var prevDiv1 = document.getElementById('preview1');
     if (file.files && file.files[0]) {
@@ -108,5 +127,6 @@
       prevDiv1.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
     }
   }
+});
   </script>
 </html>

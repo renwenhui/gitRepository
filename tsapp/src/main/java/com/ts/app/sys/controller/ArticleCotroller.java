@@ -22,6 +22,7 @@ import com.ts.app.sys.domain.Article;
 import com.ts.app.sys.domain.Mycollection;
 import com.ts.app.sys.service.ArticleService;
 import com.ts.app.sys.service.MycollectionService;
+import com.ts.app.sys.utils.CacheUtils;
 
 /**
  * 
@@ -150,15 +151,15 @@ public class ArticleCotroller extends BaseController{
 	@ResponseBody
 	public Map<String,String> upphoto(HttpServletRequest request, @RequestParam(value="file",required = false)MultipartFile file[],String title, String articlecontent){
 		Map<String,String> retMap = new HashMap<String,String>();
-		retMap.put("msg", "成功");
-		retMap.put("flag", "1");
 		
 		try{
 		//target=this.articleService.selectByPrimaryKey(id);
-		
+		//获取用户id
+		Integer userId = CacheUtils.getUser().getUserId();
 		//本地测试路径
 		String path="F:/work/upload/";
 		Article target= new Article();
+		target.setCreateuserid(userId);
 		target.setTitle(title);
 		target.setArticlecontent(articlecontent);
 		
@@ -194,6 +195,8 @@ public class ArticleCotroller extends BaseController{
 			}
 		
 		articleService.insertSelective(target);
+		retMap.put("msg", "发布成功");
+		retMap.put("flag", "1");
 		return retMap;
 			}catch (Exception e) {
 				logger.error("上传照片时发生错误：{}"+e.getMessage(), e);

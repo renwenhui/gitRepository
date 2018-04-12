@@ -16,8 +16,10 @@ import com.google.common.collect.Maps;
 import com.ts.app.sys.constants.Constants;
 import com.ts.app.sys.domain.User;
 import com.ts.app.sys.service.UserService;
+import com.ts.app.sys.utils.CacheUtils;
 
 @Controller
+@SuppressWarnings("all")
 public class UserController{
 	@Autowired
     private UserService userService;  
@@ -25,12 +27,7 @@ public class UserController{
 	private static Logger logger = Logger.getLogger(UserController.class);
 	
 	/**
-	 * @Description: 用户注册
-	 * @param: @param files
-	 * @param: @param user
-	 * @param: @throws IOException   
-	 * @return: void   
-	 * @throws
+	 *  用户注册
 	 */
     @RequestMapping("/userReg")
     @ResponseBody
@@ -79,5 +76,29 @@ public class UserController{
 		}
     	return map;
     }
+    
+    /**
+	 *  查询基本信息
+	 */
+	@RequestMapping("/findUserDetail")
+	@ResponseBody
+	public Map findUserDetail(){
+		Map map = Maps.newHashMap();
+		try {
+			Integer userId = CacheUtils.getUser().getUserId();
+			User user = userService.findUserDetailById(userId);
+			
+			map.put(Constants.SUCCESS, true);
+			map.put("user", user);
+			map.put("MAP_USER_SEX", Constants.MAP_USER_SEX);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("查询留言反馈列表信息失败，错误信息为：" + e);
+			map.put(Constants.SUCCESS, false);
+			map.put(Constants.MSG, "系统异常，请重试");
+		}
+		
+		return map;
+	}
 	
 }

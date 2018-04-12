@@ -36,16 +36,16 @@
     where articleId = #{articleid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ts.app.sys.domain.Article">
-    insert into article (articleId, title, imgUrl, 
+    insert into article ( title, imgUrl, 
       likeNum, evaluateNum, createUserId, 
       createDate, updateUserId, updateDate, 
       deleteFlag, articleContent)
-    values (#{articleid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
+    values ( #{title,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
       #{likenum,jdbcType=INTEGER}, #{evaluatenum,jdbcType=INTEGER}, #{createuserid,jdbcType=INTEGER}, 
-      #{createdate,jdbcType=TIMESTAMP}, #{updateuserid,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, 
+      now(), #{updateuserid,jdbcType=INTEGER}, now(), 
       #{deleteflag,jdbcType=CHAR}, #{articlecontent,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ts.app.sys.domain.Article">
+  <insert id="insertSelective" parameterType="com.ts.app.sys.domain.Article" >
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleid != null">
@@ -66,14 +66,8 @@
       <if test="createuserid != null">
         createUserId,
       </if>
-      <if test="createdate != null">
-        createDate,
-      </if>
       <if test="updateuserid != null">
         updateUserId,
-      </if>
-      <if test="updatedate != null">
-        updateDate,
       </if>
       <if test="deleteflag != null">
         deleteFlag,
@@ -81,6 +75,8 @@
       <if test="articlecontent != null">
         articleContent,
       </if>
+        createDate,
+        updateDate,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="articleid != null">
@@ -101,14 +97,8 @@
       <if test="createuserid != null">
         #{createuserid,jdbcType=INTEGER},
       </if>
-      <if test="createdate != null">
-        #{createdate,jdbcType=TIMESTAMP},
-      </if>
       <if test="updateuserid != null">
         #{updateuserid,jdbcType=INTEGER},
-      </if>
-      <if test="updatedate != null">
-        #{updatedate,jdbcType=TIMESTAMP},
       </if>
       <if test="deleteflag != null">
         #{deleteflag,jdbcType=CHAR},
@@ -116,6 +106,8 @@
       <if test="articlecontent != null">
         #{articlecontent,jdbcType=LONGVARCHAR},
       </if>
+      now(),
+      now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.ts.app.sys.domain.Article">
@@ -196,15 +188,22 @@
   </select>
   
    <select id="queryListArticle2" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from article
-    
-    where exists
-    
-    (select 1 from user where  userType=#{userType,jdbcType=INTEGER})
+    SELECT
+	a.articleId,
+	a.title,
+	a.imgUrl,
+	a.likeNum,
+	a.evaluateNum,
+	a.createUserId,
+	a.createDate,
+	a.updateUserId,
+	a.updateDate,
+	a.deleteFlag,
+	a.articleContent
+	FROM article a
+ 	LEFT JOIN user u
+    ON u.userId = a.createUserId
+    where u.userType =#{userType}
    
   </select>
   

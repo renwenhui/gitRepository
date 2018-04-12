@@ -34,12 +34,12 @@
 			 	 	  手机号码 ：
 			 	 </div>
 			 	 <div class="oastic_lo_right">
-			 	 	  <input type="text" placeholder="请输入手机号码" class="oastic_inp_1" />
+			 	 	  <input type="text" id="newPhone" placeholder="请输入手机号码" class="oastic_inp_1" />
 			 	 </div>
 			 </div>
 			
 			 <div class="login_buttom">
-				<a><input value="完成" class="login_buttom_1" type="button"></a>
+				<a><input value="完成" class="login_buttom_1" type="button" onclick="changePhone(this)"></a>
 			</div>
 		</div>
 		
@@ -51,39 +51,41 @@
 <script src="static/layer/layer.js"></script>
 <script src="static/js/js.js"></script>
 <script type="text/javascript">
-//修改手机号
-function changePhone(obj) {
-	var phone = $(obj).parents(".enction_cont").find("#newPhone").val();
-	var userId='${user.userId}';
-	if (!checkPhone(phone,"新手机号")) return;
-	$.ajax({
-            url: '${ctx}/updateUser',
-            data: {
-            	'phone' : phone,
-            	'userId' : userId
-            },
-            type: "POST",
-            dataType: "json",
-            success: function(data){
-                if(data.success){
-                	layer.msg(data.msg);
-				 	 setTimeout(function(){
-					   location.href = '${ctx}/findUserDetail';
-					}, 500);
-					
-                }else{
-        	    	layer.msg(data.msg);
-                }
-            },
-            error: function(data){
-                try {
-      	    		layer.msg("请求异常");
-                	return false;
-                }catch (e) {
-                	console.log(e);
-                }
-            }
-    });
-}
+$(function(){
+	//修改手机号
+	function changePhone(obj) {
+		var phone = $("#newPhone").val();
+		var userId='${user.userId}';
+		if (!checkPhone(phone,"新手机号")) return;
+		$.ajax({
+	            url: '${ctx}/updateUser',
+	            data: {
+	            	'phone' : phone,
+	            	'userId' : userId
+	            },
+	            type: "POST",
+	            dataType: "json",
+	            success: function(data){
+	                if(data.success){
+	                	layer.msg(data.msg);
+					 	 setTimeout(function(){
+						   location.href = '${ctx}/findUserDetail';
+						}, 500);
+						
+	                }else{
+	        	    	layer.msg(data.msg);
+	                }
+	            },
+	            error: function(data){
+	                try {
+	      	    		layer.msg("请求异常");
+	                	return false;
+	                }catch (e) {
+	                	console.log(e);
+	                }
+	            }
+	    });
+	}
+});
 </script>
 </html>

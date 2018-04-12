@@ -19,7 +19,7 @@
 			remChange();
 			global.addEventListener('resize',remChange,false);
 		})(window);
-</script>
+	</script>
 <body>
 	<div class="app_hend">
 		  <a class="infoNav" style="font-size: 18px;color: blueviolet;display:inline-block;width: 20%;" href="article.html">校内</a>
@@ -76,7 +76,7 @@ layui.use('flow', function(){
     	   var evaluatenum = item.evaluatenum;
     	   var articlecontent  = item.articlecontent;
     	   
-    	   var putMsg = '<a href="articleDetail.html?articleid="'+articleid+' class="spot"><b><img src='+imgurl+' /></b><h3>'+title+'</h3><p>'+articlecontent+'</p><hr /></a>';
+    	   var putMsg = '<a href="articleDetail.html?articleid="'+articleid+' class="spot"><b><img src="/img/'+imgurl+'" /></b><h3>'+title+'</h3><p>'+articlecontent+'</p><hr /></a>';
          lis.push(putMsg);
        }); 
        

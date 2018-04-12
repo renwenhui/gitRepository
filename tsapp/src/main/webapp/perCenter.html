@@ -31,7 +31,7 @@
 			<div class="Personal_img">
 				<img src="static/img/my12@2x.png">
 			</div>
-			<a>158****1234</a>
+			<a id="phone">158****1234</a>
 			<!--<p>会员名称</p>-->
 		</div>
 		<div class="PersonalCenter_cont">
@@ -92,4 +92,43 @@
 <script src="static/js/jquery-1.10.1.min.js"></script>
 <script src="static/layer/layer.js"></script>
 <script src="static/js/js.js"></script>
+<script type="text/javascript">
+$(function(){
+	//查询用户详情
+	$.ajax({
+        url: ctxApp+'/findUserDetail',
+        type: "POST",
+        dataType: "json",
+        success: function(data){
+              if(data.success){
+			    $("#phone").text(data.user.phone);
+              }else{
+      	    	layer.msg(data.msg);
+              }
+          },
+          error: function(data){
+              try {
+    	    		layer.msg("请求异常");
+              	return false;
+              }catch (e) {
+              	console.log(e);
+              }
+          }
+    	});
+	
+	
+  function preview(file) {
+    var prevDiv1 = document.getElementById('preview1');
+    if (file.files && file.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        prevDiv1.innerHTML = '<img src="' + evt.target.result + '" />';
+      }
+      reader.readAsDataURL(file.files[0]);
+    } else {
+      prevDiv1.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+    }
+  }
+});
+  </script>
 </html>
