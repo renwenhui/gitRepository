@@ -45,7 +45,7 @@
 		   	</div>
 		</div>
 		<div class="onbut">
-			<input type="button" value="确认" class="onbut_inp spoert" msg-tite="您是否确认？" onclick="doSubmit()"/>
+			<input type="button" value="确认" class="onbut_inp "  onclick="doSubmit()"/>
 		</div>
 	</div>
    
@@ -64,8 +64,6 @@
 	
 <script src="static/js/tinyImgUpload.js"></script>
 <script>
-
-
 var options = {
     path: '/',
     onSuccess: function (res) {
@@ -76,20 +74,21 @@ var options = {
     }
 }
 
+//回复
 function doSubmit() {
 	var evaluateid =getQueryString("evaluateid");
     var repaycontent = $("#repaycontent").val();
     var postData = {"evaluateid":evaluateid,"repaycontent":repaycontent};
     $.ajax({
-                 url: ctxApp+"/replyController/doInsert",
-                 dataType: 'json',
-                 data:postData,
-                 method: 'POST',
-                 async: false,//使用同步的方式,true为异步方式
-                 success: function(data) {
-                     layer.alert(data.msg);
-                }
-        });
+        url: ctxApp+"/replyController/doInsert",
+        dataType: 'json',
+        data:postData,
+        method: 'POST',
+        async: false,//使用同步的方式,true为异步方式
+        success: function(data) {
+            layer.msg(data.msg);
+       }
+    });
     
 }
 

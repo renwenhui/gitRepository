@@ -21,12 +21,12 @@ public class ReplyController extends BaseController {
 
 	@Autowired
 	private ReplyService replyService;
-
+	
 	@RequestMapping("/replyController/doInsert")
 	@ResponseBody
 	public Map<String,String> doInster(Reply reply){
 		Map<String,String> retMap = new HashMap<String,String>();
-		retMap.put("msg", "成功");
+		retMap.put("msg", "回复成功");
 		retMap.put("flag", "1");
 		
 		try{
@@ -36,7 +36,7 @@ public class ReplyController extends BaseController {
 			List<Reply> replyList =  replyService.selectByEvaluateid( evaluateid);
 			
 			if(replyList!=null && replyList.size()>0){
-				retMap.put("msg", "回复失败,一条评价只运行回复一次");
+				retMap.put("msg", "回复失败,一条评价只回复一次");
 				retMap.put("flag", "0");
 				return retMap;
 			}
@@ -46,7 +46,7 @@ public class ReplyController extends BaseController {
 			reply.setCreatedate(new Date());
 			replyService.insert(reply);
 		}catch(Exception e){
-			retMap.put("msg", "失败");
+			retMap.put("msg", "回复失败");
 			retMap.put("flag", "0");
 		}
 		

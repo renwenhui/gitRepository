@@ -73,6 +73,11 @@
 <script src="static/js/js.js"></script>
 
 <script>
+//回复
+function reply(evaluateId,userName){
+	location.href = 'reply.html?evaluateId='+evaluateId;
+}
+
 layui.use('flow', function(){
   var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
   var flow = layui.flow;
@@ -112,7 +117,7 @@ layui.use('flow', function(){
     	          }
     	          
     	          msg += '<span style="color: #9c9898;padding-left: 5rem;">'+createDate+'</span>'; 
-    	          msg += '<img  class="reply" src="static/img/xi03@3xx.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 1rem;float: right;"><span style="float: right;">回复</span></img>'; 
+    	          msg += '<img  onclick="reply('+evaluateId+')"  src="static/img/xi03@3xx.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 1rem;float: right;"><span style="float: right;">回复</span></img>'; 
     	          msg += '</div>';  
     	        
     	           var putMsg = msg;
@@ -134,15 +139,13 @@ layui.use('flow', function(){
 
 //跳转到评价页
 $('body').on('click','.toEvaluate',function(){
-	
 	var articleid = getQueryString("articleid");
-	console.log("111"+articleid);
 	location.href = 'evaluate.html?articleid='+articleid;	
 })
 
-$('body').on('click','.reply',function(evaluateId){
+/* $('body').on('click','.reply',function(evaluateId){
 	location.href = 'reply.html?evaluateId='+evaluateId;	
-})
+}) */
 
 function doLikenum(articleid) {
     var postData = {"articleid":articleid};
