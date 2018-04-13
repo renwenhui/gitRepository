@@ -1,6 +1,5 @@
 package com.ts.app.sys.controller;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,22 +11,17 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
 import com.ts.app.sys.constants.Constants;
-import com.ts.app.sys.domain.User;
 import com.ts.app.sys.service.UserService;
 import com.ts.app.sys.shiro.CustomRealm;
 import com.ts.app.sys.shiro.CustomUsernamePasswordToken;
-import com.ts.app.sys.utils.CacheUtils;
-import com.ts.app.sys.utils.DateTimeUtil;
 
 @Controller
 public class LoginController{
@@ -74,13 +68,6 @@ public class LoginController{
 	            token.clear();
 	        }
     	}
-        //获取session
-        HttpSession session = request.getSession(false);
-        // 获取session中前一次点击的url
-        String url = (String) session.getAttribute(Constants.URL_KEY); 
-        if(!StringUtils.isEmpty(url)){
-        	map.put(Constants.URL_KEY, url);
-        }
         map.put(Constants.SUCCESS, result);
         map.put(Constants.MSG, errorMessage);
         return map;

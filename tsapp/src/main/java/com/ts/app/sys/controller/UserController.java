@@ -8,10 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,7 @@ import com.ts.app.sys.constants.Constants;
 import com.ts.app.sys.domain.Article;
 import com.ts.app.sys.domain.User;
 import com.ts.app.sys.service.UserService;
+import com.ts.app.sys.shiro.CustomRealm;
 import com.ts.app.sys.utils.CacheUtils;
 import com.ts.app.sys.utils.MD5Util;
 import com.ts.app.sys.utils.UploadUtils;
@@ -29,7 +32,10 @@ import com.ts.app.sys.utils.UploadUtils;
 @SuppressWarnings("all")
 public class UserController{
 	@Autowired
-    private UserService userService;  
+    private UserService userService; 
+	
+	@Autowired
+	private CustomRealm customRealm;
 	
 	private static Logger logger = Logger.getLogger(UserController.class);
 	
@@ -255,10 +261,21 @@ public class UserController{
 	/** 
 	 * 用户登出 
 	 */  
-	/*@RequestMapping(value="/logout",method=RequestMethod.GET)  
-	public String logout(HttpServletRequest request){  
-	     SecurityUtils.getSubject().logout();  
-	     return "redirect:/login";  
-	} */
+	@RequestMapping(value="/logout",method=RequestMethod.GET)  
+	@ResponseBody
+	public Map logout(HttpServletRequest request){  
+		 Map map = Maps.newHashMap();
+		 try {
+			 customRealm.clearAllCachedAuthenticationInfo(); //退出清空认证信息缓存
+			 SecurityUtils.getSubject().logout(); 
+			 map.put(Constants.SUCCESS, true);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+				logger.error("推出登陆错误，错误信息为：" + e);
+				map.put(Constants.SUCCESS, false);
+				map.put(Constants.MSG, "系统异常,请重试");
+		 }
+	     return map;  
+	} 
 	
 }
