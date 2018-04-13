@@ -79,6 +79,10 @@ function doSubmit() {
        async: false,//使用同步的方式,true为异步方式
        success: function(data) {
            layer.msg(data.msg);
+           setTimeout(function(){
+        	   location.href = 'evaluateList.html?articleid='+articleid;
+		   }, 500);
+
       }
    });
     

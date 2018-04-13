@@ -74,8 +74,8 @@
 
 <script>
 //回复
-function reply(evaluateId,userName){
-	location.href = 'reply.html?evaluateId='+evaluateId;
+function reply(evaluateId,articleid){
+	location.href = 'reply.html?evaluateId='+evaluateId+'&articleid='+articleid;
 }
 
 layui.use('flow', function(){
@@ -90,8 +90,6 @@ layui.use('flow', function(){
     	    $.get(ctxApp+'/evaluateController/list?articleid='+articleid, function(data){
     	       //假设你的列表返回在data集合中
     	       layui.each(data, function(index, item){
-    	           var articleid = item.articleid;
-    	           
     	           var evaluateId = item.evaluateId;
     	           var evaluateContent = item.evaluateContent;
     	           var createDate = fmtDate(item.createDate);
@@ -109,7 +107,7 @@ layui.use('flow', function(){
     	          if(userNameB){
 	    	          msg += '<div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">'; 
 	    	          msg += '<div>'; 
-	    	          msg += '<p style="display:inline-block;color: #007AFF;">'+userNameB+'</p>';
+	    	          msg += '<p style="display:inline-block;color: #007AFF;padding-right:1rem;">'+userNameB+'&nbsp;:</p>';
 	    	          msg += '<span >'+repayContent+'</span>';
 	    	            
 	    	          msg += '</div>'; 
@@ -117,7 +115,7 @@ layui.use('flow', function(){
     	          }
     	          
     	          msg += '<span style="color: #9c9898;padding-left: 5rem;">'+createDate+'</span>'; 
-    	          msg += '<img  onclick="reply('+evaluateId+')"  src="static/img/xi03@3xx.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 1rem;float: right;"><span style="float: right;">回复</span></img>'; 
+    	          msg += '<img  onclick="reply('+evaluateId+','+articleid+')"  src="static/img/xi03@3xx.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 1rem;float: right;"><span style="float: right;">回复</span></img>'; 
     	          msg += '</div>';  
     	        
     	           var putMsg = msg;
