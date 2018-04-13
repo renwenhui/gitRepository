@@ -24,7 +24,7 @@
 <body>
 	<div class="app_hend">
 		         修改手机
-		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="img/sy_icon01.png"></a>
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
 		 
 	</div>
 	<div class="page_content">
@@ -55,9 +55,7 @@
 $(function(){
 	//修改手机号
 	$("#changePhone").click(function(){
-		alert("111");
 		var phone = $("#newPhone").val();
-		//获取上个页面传过来的userId
 		
 		if (!checkPhone(phone,"新手机号")) return;
 		$.ajax({

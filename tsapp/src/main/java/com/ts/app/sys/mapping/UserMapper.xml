@@ -9,6 +9,7 @@
 		sex,
 		phone,
 		email,
+		headUrl,
 		createUserId,
 		createDate,
 		updateUserId,

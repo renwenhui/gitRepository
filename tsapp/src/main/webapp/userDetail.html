@@ -23,26 +23,28 @@
 </script>
 <body>
 	<div class="app_hend">
-		         基本信息
+		         基本信息                                                                                                                    
 		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
 		 
 	</div>
 	<div class="page_content">
 		<div class="oastic">
 			<div class="Businessx">
+			  <form id="inputForm" method="post" >
 			 	 <div class="Businessx_left1">
 			 	 	  头像 ：
 			 	 </div>
 			 	 <div class="Businessx_right">
 			 	 	  <div class="bus_img" id="preview1">
-			 	 	  	<img src="static/img/jbxx01@2x_31.png">
+			 	 	  	<img id="headUrl" src="static/img/my12@2x.png">
 			 	 	  </div>
 			 	 	  <div class="fileweb">
 			 	 	  	点击上传头像
-			 	 	  <input onchange="preview(this)" type="file">
+			 	 	  <input class="upload" type="file" name="file">
 			 	 	  </div>
                         
 			 	 </div>
+			   </form>
 			 </div>
 			 <div class="oastic_cont_1">
 			 	 <div class="oastic_lo_left2">
@@ -85,6 +87,7 @@
 <script src="static/js/jquery-1.10.1.min.js"></script>
 <script src="static/layer/layer.js"></script>
 <script src="static/js/js.js"></script>
+<script src="static/js/regular.js"></script>
 <script type="text/javascript">
 $(function(){
 	//查询用户详情
@@ -98,6 +101,9 @@ $(function(){
              	$("#sex").text(data.user.sex);
              	$("#email").text(data.user.email);
              	$("#phone").text(data.user.phone);
+             	if(data.user.headUrl){
+            		$("#headUrl").attr("src","/img/"+data.user.headUrl);
+            	}
              	
              	$("#phone").parent().attr("href","changePhone.html?useId="+data.user.userId);
               }else{
@@ -114,19 +120,52 @@ $(function(){
           }
     	});
 	
+	//上传头像
+	$(".upload").change(function () {
+	    var headImgUrl=getObjectURL(this.files[0]);
+	    $(this).parent().prev().find('img').attr("src",headImgUrl);
+	    
+	  //改变头像
+	    var headImgUrl=getObjectURL(this.files[0]);
+	    $("#showHeadImg").attr("src",headImgUrl);
+	    
+	    //上传头像
+	 	var file=$(".upload");
+	 	if (!isEmpty(file,"头像")) return;
+	 	var formData = new FormData($("#inputForm")[0]);
+	 	$.ajax({
+			  url: ctxApp+'/changeHead',
+	          data: formData,  
+	          cache: false,  
+	          contentType: false,  
+	          processData: false, 
+	          type : "POST",
+	          dataType : "json",
+	          success: function (data) { 
+				if(data.success){
+				 	layer.msg(data.msg);
+				 	setTimeout(function(){
+				 		location.href = ctxApp+'/userDetail.html';
+					}, 500);
+				}else{
+					layer.msg(data.msg);
+				}  
+	          }
+		});
+	})
 	
-  function preview(file) {
-    var prevDiv1 = document.getElementById('preview1');
-    if (file.files && file.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(evt) {
-        prevDiv1.innerHTML = '<img src="' + evt.target.result + '" />';
-      }
-      reader.readAsDataURL(file.files[0]);
-    } else {
-      prevDiv1.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
-    }
-  }
+	//获取图片路径
+	function getObjectURL(file) {
+	    var url = null ; 
+	    if (window.createObjectURL!=undefined) { // basic
+	        url = window.createObjectURL(file) ;
+	    } else if (window.URL!=undefined) { // mozilla(firefox)
+	        url = window.URL.createObjectURL(file) ;
+	    } else if (window.webkitURL!=undefined) { // webkit or chrome
+	        url = window.webkitURL.createObjectURL(file) ;
+	    }
+	    return url ;
+	}
 });
   </script>
 </html>

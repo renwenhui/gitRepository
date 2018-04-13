@@ -19,7 +19,11 @@
 			remChange();
 			global.addEventListener('resize',remChange,false);
 		})(window);
-</script>
+	</script>
+	<style>
+		.Personal_img{ width: 13rem; height: 13rem;   border-radius: 50rem;}
+		.Personal_img img{ width: 13rem; height: 13rem;  border-radius: 50rem; }
+	</style>
 <body>
 
 	<div class="login_hend"> 
@@ -28,8 +32,8 @@
 	</div>
 	<div class="app_coent">
 		<div class="PersonalCenter_hend">
-			<div class="Personal_img">
-				<img src="static/img/my12@2x.png">
+			<div class="Personal_img">  
+				<img id="headUrl" src="static/img/my12@2x.png">
 			</div>
 			<a id="phone">158****1234</a>
 			<!--<p>会员名称</p>-->
@@ -101,7 +105,11 @@ $(function(){
         dataType: "json",
         success: function(data){
               if(data.success){
+            	if(data.user.headUrl){
+            		$("#headUrl").attr("src","/img/"+data.user.headUrl);
+            	}
 			    $("#phone").text(data.user.phone);
+			    
               }else{
       	    	layer.msg(data.msg);
               }

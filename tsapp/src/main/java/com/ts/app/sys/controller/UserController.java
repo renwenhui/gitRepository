@@ -1,5 +1,7 @@
 package com.ts.app.sys.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,13 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Maps;
 import com.ts.app.sys.constants.Constants;
+import com.ts.app.sys.domain.Article;
 import com.ts.app.sys.domain.User;
 import com.ts.app.sys.service.UserService;
 import com.ts.app.sys.utils.CacheUtils;
+import com.ts.app.sys.utils.UploadUtils;
 
 @Controller
 @SuppressWarnings("all")
@@ -118,6 +124,65 @@ public class UserController{
 	        map.put(Constants.SUCCESS, false);
 	        map.put(Constants.MSG, "修改失败,请重试");
 	        logger.error("修改失败：" + e);
+	        e.printStackTrace();
+		}
+    	return map;
+    }
+	
+	
+	/**
+	 * 上传头像
+	 */
+	@RequestMapping("/changeHead")
+    @ResponseBody
+    public Map changeHead(HttpServletRequest request,@RequestParam(value="file",required = false)MultipartFile file[]){
+    	Map map = Maps.newHashMap();
+    	try{
+    		//获取用户id
+    		Integer userId = CacheUtils.getUser().getUserId();
+    		//本地测试路径
+    		String path="F:/work/upload/";
+    		User user= new User();
+    		user.setUserId(userId);
+    		
+    		//验证地址是否存在
+    		File targetFile=new File(path); 
+    		if(!targetFile.exists()){
+    			targetFile.mkdirs();
+    		}
+    		
+    		//遍历
+    			for(int i=0; i<file.length;i++){
+    				
+    				if(!file[i].isEmpty()){
+    					try {		
+    						//获取照片原始名称
+    						String photoName=file[i].getOriginalFilename();
+    						//扩展名
+    						String extName = photoName.substring(photoName.lastIndexOf("."));
+    						//防止图片名称冲突，中文乱码等问题重命名
+    						photoName = System.nanoTime() + extName; 
+    						user.setHeadUrl(photoName);
+    						
+    						//创建实际路径	
+    						file[i].transferTo(new File(path+photoName));
+    						
+    					} catch (IllegalStateException e) {
+    						e.printStackTrace();
+    					} catch (IOException e) {
+    						e.printStackTrace();
+    					}
+    				}
+    				
+    			}
+    		
+    		userService.updateUserById(user);
+	        map.put(Constants.SUCCESS, true);
+	        map.put(Constants.MSG, "上传成功");
+		}catch (Exception e) {
+	        map.put(Constants.SUCCESS, false);
+	        map.put(Constants.MSG, "上传失败,请重试");
+	        logger.error("头像上传失败：" + e);
 	        e.printStackTrace();
 		}
     	return map;
