@@ -151,6 +151,8 @@ public class ArticleCotroller extends BaseController{
 	@ResponseBody
 	public Map<String,String> upphoto(HttpServletRequest request, @RequestParam(value="file",required = false)MultipartFile file[],String title, String articlecontent){
 		Map<String,String> retMap = new HashMap<String,String>();
+		retMap.put("msg", "发布成功");
+		retMap.put("flag", "1");
 		
 		try{
 		//target=this.articleService.selectByPrimaryKey(id);
@@ -195,8 +197,7 @@ public class ArticleCotroller extends BaseController{
 			}
 		
 		articleService.insertSelective(target);
-		retMap.put("msg", "发布成功");
-		retMap.put("flag", "1");
+		
 		return retMap;
 			}catch (Exception e) {
 				logger.error("上传照片时发生错误：{}"+e.getMessage(), e);

@@ -79,13 +79,13 @@
 			 	   <!--  <div id="upload" class="niopent">
 		   		   </div> -->
 		   		   <input type="file" name="file"  id="file" accept="image/jpg,image/jpeg,image/png" value="" class="upload"/>
-		   		  <img id="img1" src="${ctx}/static/img/zcsj01.png" alt="" style="width:30rem;height:25rem;"/> 
+		   		  <img id="img1" src="http://localhost:8080/tsapp/static/img/zcsj02.png" alt="" /> 
 		   		</div>
 		   	
 		   	
 		</div>
 		<div class="onbut">
-			<input type="button" value="确认" class="onbut_inp spoert" msg-tite="您是否确认？" onclick="doSubmit()"/>
+			<input type="button" value="确认" class="onbut_inp "  onclick="doSubmit()"/>
 		</div>
 		
 		</form>
@@ -148,6 +148,9 @@ function doSubmit() {
 	    processData: false, 
 	    success: function(data){
 			layer.msg(data.msg);
+			setTimeout(function(){
+				location.href = ctxApp+'/dailyRecommend.html'; 
+			  }, 500);
         },
         error: function(data){
             try {
