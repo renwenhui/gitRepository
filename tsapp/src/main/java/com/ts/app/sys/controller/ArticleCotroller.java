@@ -42,7 +42,6 @@ public class ArticleCotroller extends BaseController{
 
 	/**
 	 * 校内 管理员发布,userType=0
-	 * userType=1 推荐
 	 * @return
 	 */
 	@RequestMapping("/articleController/list")
@@ -50,7 +49,7 @@ public class ArticleCotroller extends BaseController{
 	public List<Article> list(){
 			Map<String,Object> filterMap = new HashMap<String,Object>();
 			filterMap.put("userType", "0");
-			List<Article>  articleList= 	articleService.queryListArticle(filterMap);
+			List<Article>  articleList= articleService.queryListArticle(filterMap);
 		return articleList;
 	}
 	
@@ -63,7 +62,7 @@ public class ArticleCotroller extends BaseController{
 	public List<Article> listTuijian(){
 		Map<String,Object> filterMap = new HashMap<String,Object>();
 		filterMap.put("userType", "1");
-		List<Article>  articleList= 	articleService.queryListArticle(filterMap);
+		List<Article>  articleList= articleService.queryListArticle(filterMap);
 		return articleList;
 	}
 	
@@ -143,11 +142,10 @@ public class ArticleCotroller extends BaseController{
 	}
 	
 	/**
-	 * @RequestParam("file")指定
-	 * 上传图片处理
+	 * 发帖
 	 */
 	
-	@RequestMapping(value = "/articleController/upphoto", method = RequestMethod.POST)
+	@RequestMapping(value = "/articleController/publishArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> upphoto(HttpServletRequest request, @RequestParam(value="file",required = false)MultipartFile file[],String title, String articlecontent){
 		Map<String,String> retMap = new HashMap<String,String>();

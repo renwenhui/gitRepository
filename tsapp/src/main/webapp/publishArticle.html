@@ -116,27 +116,15 @@ var options = {
     }
 }
 
-//var upload = tinyImgUpload('#upload', options);
-
 $(".upload").change(function () {
     var headImgUrl=getObjectURL(this.files[0]);
     $(this).next().attr("src",headImgUrl);
 })
 
-/* document.getElementsByClassName('submit')[0].onclick = function (e) {
-    upload();
-} */
-
 function doSubmit() {
 	
-	/* var title = $("#title").val();
-	var articlecontent = $("#articlecontent").val();
-	var imgurl = $("#imgurl").val();
-	var postData = {"title":title,"articlecontent":articlecontent,"imgurl":imgurl}; */
 	var formData = new FormData($("#addForm" )[0]);
-	
-	var postUrl = ctxApp+"/articleController/upphoto";
-	alert(postUrl);
+	var postUrl = ctxApp+"/articleController/publishArticle";
 	$.ajax({
 	    url: postUrl,
 	    dataType: 'json',
