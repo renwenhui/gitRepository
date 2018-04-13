@@ -39,7 +39,7 @@
 		   	</div>
 		</div>
 		<div class="onbut">
-			<input type="button" value="确认" class="onbut_inp spoert" msg-tite="您是否确认？" onclick="doSubmit()"/>
+			<input type="button" value="确认" class="onbut_inp "  onclick="doSubmit()"/>
 		</div>
 	</div>
    
@@ -50,19 +50,13 @@
 <script type="static/text/javascript" src="js/jquery.raty.min.js"></script>
 <script src="static/js/js.js"></script>
 <script type="text/javascript">
-      $.fn.raty.defaults.path = 'img';
+      /* $.fn.raty.defaults.path = 'img';
       $('#default-demo').raty();
       var aa = $('.webluate_right').width()
-	  $('#default-demo').width(aa)
-  </script>
-	
-	
-	
-	
+	  $('#default-demo').width(aa) */
+</script>
 <script src="static/js/tinyImgUpload.js"></script>
 <script>
-
-
 var options = {
     path: '/',
     onSuccess: function (res) {
@@ -72,21 +66,21 @@ var options = {
         console.log(res);
     }
 }
-
+//评价
 function doSubmit() {
     var articleid =getQueryString("articleid");
     var evaluatecontent = $("#evaluatecontent").val();
     var postData = {"articleid":articleid,"evaluatecontent":evaluatecontent};
     $.ajax({
-                 url: ctxApp+"/evaluateController/doInsert",
-                 dataType: 'json',
-                 data:postData,
-                 method: 'POST',
-                 async: false,//使用同步的方式,true为异步方式
-                 success: function(data) {
-                     layer.alert(data.msg);
-                }
-        });
+       url: ctxApp+"/evaluateController/doInsert",
+       dataType: 'json',
+       data:postData,
+       method: 'POST',
+       async: false,//使用同步的方式,true为异步方式
+       success: function(data) {
+           layer.alert(data.msg);
+      }
+   });
     
 }
 </script>

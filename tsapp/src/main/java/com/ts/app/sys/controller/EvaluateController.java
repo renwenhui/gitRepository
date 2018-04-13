@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ts.app.sys.domain.Evaluate;
 import com.ts.app.sys.service.EvaluateService;
+import com.ts.app.sys.utils.CacheUtils;
 
 /**
  * 评价controller
@@ -21,21 +22,27 @@ public class EvaluateController extends BaseController {
 
 	@Autowired
 	private EvaluateService evaluateService;
-
+	
+	/**
+	 * 评价列表
+	 */
 	@RequestMapping("/evaluateController/list")
 	@ResponseBody
 	public List list(Integer articleid){
 		Map<String,Object> filterMap = new HashMap<String,Object>();
 		filterMap.put("articleid", articleid);
-		 List  articleList= 	evaluateService.queryListByArticeId2(filterMap);
+		 List  articleList= evaluateService.queryListByArticeId2(filterMap);
 		return articleList;
 	}
 	
+	/**
+	 * 添加评价
+	 */
 	@RequestMapping("/evaluateController/doInsert")
 	@ResponseBody
 	public Map<String,String> doInster(Evaluate Evaluate){
 		Map<String,String> retMap = new HashMap<String,String>();
-		retMap.put("msg", "成功");
+		retMap.put("msg", "评价成功");
 		retMap.put("flag", "1");
 		
 		try{
@@ -44,7 +51,7 @@ public class EvaluateController extends BaseController {
 			Evaluate.setCreatedate(new Date());
 			evaluateService.insert(Evaluate);
 		}catch(Exception e){
-			retMap.put("msg", "失败");
+			retMap.put("msg", "评价失败");
 			retMap.put("flag", "0");
 		}
 		

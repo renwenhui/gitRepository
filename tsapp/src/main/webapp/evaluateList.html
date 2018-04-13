@@ -26,8 +26,8 @@
 		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
 	</div>
 	<div style="padding-top: 8rem;">
-	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 5px;"><span id="evaluatenum">评价 0</span></img>
-		<img  class="like" src="static/img/xi02@2xx.png" style="width:15px;height: 15px; margin-left: 30px;margin-right: 5px;" onclick="doLikenum(1)"><span>点赞 <span id="likenum">0</span></span></img>
+	     <img  class="toEvaluate" src="static/img/ggg.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 0.5rem;"><span id="evaluatenum">评价 0</span></img>
+		<img  class="like" src="static/img/xi02@2xx.png" style="width:1.7rem;height: 1.7rem; margin-left: 3rem;margin-right: 0.5rem;" onclick="doLikenum(1)"><span>点赞 <span id="likenum">0</span></span></img>
 		<hr />
 		<div id="LAY_demo1">
 		<!-- <div class="Businessx">
@@ -50,8 +50,8 @@
 					<span >城市套路深</span>
 				</div>
 			</div>
-			<span style="color: #9c9898;padding-left: 50px;">3-22 20:59</span>
-			<img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>
+			<span style="color: #9c9898;padding-left: 5rem;">3-22 20:59</span>
+			<img  class="reply" src="static/img/xi03@3xx.png" style="width:2rem;height: 2rem;margin-left: 1rem;margin-right: 1rem;float: right;"><span style="float: right;">回复</span></img>
 		</div> -->
 		
 		</div>
@@ -95,24 +95,25 @@ layui.use('flow', function(){
     	           var repayContent = item.repayContent;
     	           var headUrl = item.headUrl;
     	           
-    	          var msg = ' <div class="Businessx">';
-    	          msg = msg + "<div >";
-    	          msg = msg + '<img src='+headUrl+'  style="width:4rem;height:4rem;float:left;margin-left: 0.5rem;">';
-    	          msg = msg + '<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">'+userNameA+'</p>';
-    	          msg = msg + '<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">'+evaluateContent+'</p>';
-    	          msg = msg + "</div>";  
+    	          var msg = '<div class="Businessx">';
+    	          msg += '<div >';
+    	          msg += '<img src=/img/'+headUrl+'  style="border-radius: 2rem;width:4rem;height:4rem;float:left;margin-left: 0.5rem;">';
+    	          msg += '<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">'+userNameA+'</p>';
+    	          msg += '<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">'+evaluateContent+'</p>';
+    	          msg += "</div>";  
+    	          if(userNameB){
+	    	          msg += '<div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">'; 
+	    	          msg += '<div>'; 
+	    	          msg += '<p style="display:inline-block;color: #007AFF;">'+userNameB+'</p>';
+	    	          msg += '<span >'+repayContent+'</span>';
+	    	            
+	    	          msg += '</div>'; 
+	    	          msg += '</div>';
+    	          }
     	          
-    	          msg = msg + '  <div style="background: #F7F7F7;margin: 1rem 1rem 1rem 5rem;">'; 
-    	          msg = msg + '  <div>'; 
-    	          msg = msg + '  <p style="display:inline-block;color: #007AFF;">'+userNameA+'</p>';
-    	          msg = msg + '  <span >'+repayContent+'</span>';
-    	            
-    	          msg = msg + '   </div>'; 
-    	          msg = msg + '  </div>'; 
-    	          
-    	          msg = msg + '   <span style="color: #9c9898;padding-left: 50px;">'+createDate+'</span>'; 
-    	          msg = msg + '   <img  class="reply" src="static/img/xi03@3xx.png" style="width:15px;height: 15px;margin-left: 10px;margin-right: 10px;float: right;"><span style="float: right;">回复</span></img>'; 
-    	          msg = msg + '   </div>';  
+    	          msg += '<span style="color: #9c9898;padding-left: 5rem;">'+createDate+'</span>'; 
+    	          msg += '<img  class="reply" src="static/img/xi03@3xx.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 1rem;float: right;"><span style="float: right;">回复</span></img>'; 
+    	          msg += '</div>';  
     	        
     	           var putMsg = msg;
     	         lis.push(putMsg);
@@ -130,8 +131,13 @@ layui.use('flow', function(){
     }
   });
 });	
+
+//跳转到评价页
 $('body').on('click','.toEvaluate',function(){
-	location.href = 'evaluate.html';	
+	
+	var articleid = getQueryString("articleid");
+	console.log("111"+articleid);
+	location.href = 'evaluate.html?articleid='+articleid;	
 })
 
 $('body').on('click','.reply',function(evaluateId){

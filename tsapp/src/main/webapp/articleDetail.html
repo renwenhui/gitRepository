@@ -75,10 +75,12 @@ paginationType: 'fraction'
 
 $(document).ready(function(){
 	doGetInfo();
-	});
-	
+});
+
+//获取文章详情
 function doGetInfo() {
     var articleid = getQueryString("articleid");
+    alert(articleid);
     
     $.ajax({
                  url: ctxApp+"/articleController/get?articleid="+articleid,

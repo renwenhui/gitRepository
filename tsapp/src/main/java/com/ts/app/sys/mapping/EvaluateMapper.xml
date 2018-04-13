@@ -142,22 +142,32 @@
   
    <select id="queryListByArticeId" parameterType="java.util.HashMap" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+    	<include refid="Base_Column_List" />
     from evaluate
     where articleid = #{articleid,jdbcType=INTEGER}
   </select>
   
    <select id="queryListByArticeId2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
     select 
-    e.evaluateId, e.articleId, e.evaluateContent, e.isReaded, e.createUserId, e.createDate, e.updateUserId, 
-    e.updateDate, e.deleteFlag, r.repayContent, r.createUserId, a.userName as userNameA, b.userName as userNameB, a.headUrl
-    from evaluate e left join  reply r  on  e.evaluateId = r.evaluateId
-    
-     left join user a  on a.userId=e.createUserId
-     
-     left join user b on b.userId=r.createUserId
-     
-     where articleid = #{articleid,jdbcType=INTEGER}
+	    e.evaluateId, 
+	    e.articleId, 
+	    e.evaluateContent, 
+	    e.isReaded, 
+	    e.createUserId, 
+	    e.createDate, 
+	    e.updateUserId, 
+	    e.updateDate, 
+	    e.deleteFlag, 
+	    r.repayContent, 
+	    r.createUserId, 
+	    a.userName as userNameA, 
+	    b.userName as userNameB, 
+	    a.headUrl
+    from evaluate e 
+    left join  reply r  on  e.evaluateId = r.evaluateId
+    left join user a  on a.userId=e.createUserId
+    left join user b on b.userId=r.createUserId
+    where articleid = #{articleid,jdbcType=INTEGER}
     order by e.evaluateId
     
     
