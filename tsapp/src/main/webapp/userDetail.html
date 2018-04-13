@@ -98,7 +98,7 @@ $(function(){
         success: function(data){
               if(data.success){
              	$("#userName").text(data.user.userName);
-             	$("#sex").text(data.user.sex);
+             	$("#sex").text(data.MAP_USER_SEX[data.user.sex]);
              	$("#email").text(data.user.email);
              	$("#phone").text(data.user.phone);
              	if(data.user.headUrl){

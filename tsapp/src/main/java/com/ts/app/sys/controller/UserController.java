@@ -22,6 +22,7 @@ import com.ts.app.sys.domain.Article;
 import com.ts.app.sys.domain.User;
 import com.ts.app.sys.service.UserService;
 import com.ts.app.sys.utils.CacheUtils;
+import com.ts.app.sys.utils.MD5Util;
 import com.ts.app.sys.utils.UploadUtils;
 
 @Controller
@@ -188,5 +189,76 @@ public class UserController{
     	return map;
     }
 	
+	/**
+	 *  检查原密码
+	 */
+	@RequestMapping("/checkPassword")
+    @ResponseBody
+    public Map checkPassword(User user){
+    	Map map = Maps.newHashMap();
+    	try{
+	    	//获取用户id
+			Integer userId = CacheUtils.getUser().getUserId();
+	    	User u = userService.findUserDetailById(userId);
+	    	//获取密码盐
+			String salt = u.getSalt(); //获取6位随机数
+			//对密码进行加密
+			String cipherPw = MD5Util.saltMd5(user.getPassword(), salt); // 获取加密后密码
+	    	if (cipherPw.equals(u.getPassword())) {
+	    		map.put(Constants.SUCCESS, true);
+			}else{
+				map.put(Constants.SUCCESS, false);
+		        map.put(Constants.MSG, "原密码输入有误，请确认");
+			}
+    	} catch (Exception e) {
+    		map.put(Constants.SUCCESS, false);
+ 	        map.put(Constants.MSG, "原密码输入有误,请重试");
+ 	        logger.error("原密码输入有误：" + e);
+ 	        e.printStackTrace();
+    	}
+		return map;
+    }
+	
+	
+	/**
+	 * @Description: 修改登录密码
+	 * @version: v1.0.0
+	 * @author: ren
+	 * @date: 2018-1-2 下午5:29:15
+	 */
+	@RequestMapping(value="changeLoginPwd")
+	@ResponseBody
+	public Map changeLoginPwd(User user){
+		Map map = Maps.newHashMap();
+		try {
+			Integer userId=CacheUtils.getUser().getUserId();
+			user.setUpdateUserId(userId);
+			user.setUserId(userId);
+			//获取随机数密码盐
+			String salt = (int)((Math.random()*9+1)*100000) + ""; //获取6位随机数
+			//对新密码进行加密
+			String cipherPw = MD5Util.saltMd5(user.getPassword(), salt); // 获取加密后密码
+			user.setSalt(salt);
+			user.setPassword(cipherPw);
+			userService.updateUserById(user);
+			map.put(Constants.SUCCESS, true);
+			map.put(Constants.MSG, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("密码修改错误，错误信息为：" + e);
+			map.put(Constants.SUCCESS, false);
+			map.put(Constants.MSG, "修改失败,请重试");
+		}
+		return map;  
+	}
+	
+	/** 
+	 * 用户登出 
+	 */  
+	/*@RequestMapping(value="/logout",method=RequestMethod.GET)  
+	public String logout(HttpServletRequest request){  
+	     SecurityUtils.getSubject().logout();  
+	     return "redirect:/login";  
+	} */
 	
 }
