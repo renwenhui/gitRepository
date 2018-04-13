@@ -39,8 +39,8 @@
 			 </div>
 			
 			 <div class="login_buttom">
-				<a><input value="完成" class="login_buttom_1" type="button" onclick="changePhone(this)"></a>
-			</div>
+				<input value="完成" class="login_buttom_1" type="button" id="changePhone" >
+			 </div>
 		</div>
 		
 	</div>
@@ -50,18 +50,20 @@
 <script src="static/js/jquery-1.10.1.min.js"></script>
 <script src="static/layer/layer.js"></script>
 <script src="static/js/js.js"></script>
+<script src="static/js/regular.js"></script>
 <script type="text/javascript">
 $(function(){
 	//修改手机号
-	function changePhone(obj) {
+	$("#changePhone").click(function(){
+		alert("111");
 		var phone = $("#newPhone").val();
-		var userId='${user.userId}';
+		//获取上个页面传过来的userId
+		
 		if (!checkPhone(phone,"新手机号")) return;
 		$.ajax({
-	            url: '${ctx}/updateUser',
+	            url: ctxApp+'/updateUser',
 	            data: {
-	            	'phone' : phone,
-	            	'userId' : userId
+	            	'phone' : phone
 	            },
 	            type: "POST",
 	            dataType: "json",
@@ -69,7 +71,7 @@ $(function(){
 	                if(data.success){
 	                	layer.msg(data.msg);
 					 	 setTimeout(function(){
-						   location.href = '${ctx}/findUserDetail';
+						   location.href = ctxApp+'/userDetail.html';
 						}, 500);
 						
 	                }else{
@@ -85,7 +87,7 @@ $(function(){
 	                }
 	            }
 	    });
-	}
+	});
 });
 </script>
 </html>

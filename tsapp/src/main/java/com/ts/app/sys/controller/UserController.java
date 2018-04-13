@@ -101,4 +101,27 @@ public class UserController{
 		return map;
 	}
 	
+	/**
+	 * 更改用户信息
+	 */
+	@RequestMapping("/updateUser")
+    @ResponseBody
+    public Map updateUser(HttpServletRequest request,User user){
+    	Map map = Maps.newHashMap();
+    	try{
+    		Integer userId = CacheUtils.getUser().getUserId();
+    		user.setUserId(userId);
+    		userService.updateUserById(user);//更新用户信息
+	        map.put(Constants.SUCCESS, true);
+	        map.put(Constants.MSG, "修改成功");
+		}catch (Exception e) {
+	        map.put(Constants.SUCCESS, false);
+	        map.put(Constants.MSG, "修改失败,请重试");
+	        logger.error("修改失败：" + e);
+	        e.printStackTrace();
+		}
+    	return map;
+    }
+	
+	
 }

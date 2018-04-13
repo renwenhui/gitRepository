@@ -124,8 +124,8 @@
 		<if test="headUrl != null ">
 			headUrl = #{headUrl},
 		</if>
-		<if test="delFlag != null ">
-			delFlag = #{delFlag},
+		<if test="deleteFlag != null ">
+			deleteFlag = #{deleteFlag},
 		</if>
 			updateDate = now()
 		where userId = #{userId}
