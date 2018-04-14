@@ -25,9 +25,9 @@ public interface ArticleMapper {
 	public List<Article> queryListArticle2(Map<String, Object> filterMap) ;
 	
 	 /**
-		 * 我的发布的帖子，有未读的评价
-		 * @return
-		 */
+	 * 我的发布的帖子，有未读的评价
+	 * @return
+	 */
 	public List<Article> listPingjia(Map<String, Object> filterMap) ;
 	
 	/**
@@ -35,4 +35,9 @@ public interface ArticleMapper {
 	 * @return
 	 */
 	public List<Article> listReply(Map<String, Object> filterMap) ;
+	/**
+	 * 别人的帖子，我评价的
+	 * @return
+	 */
+	List<Article> queryListByMyEvaluate(Map<String, Object> filterMap);
 }
