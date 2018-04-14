@@ -24,6 +24,7 @@ import com.ts.app.sys.shiro.CustomRealm;
 import com.ts.app.sys.shiro.CustomUsernamePasswordToken;
 
 @Controller
+@SuppressWarnings("all")
 public class LoginController{
 	
 	@Autowired

@@ -20,6 +20,7 @@ import com.ts.app.sys.service.EvaluateService;
  * 评价controller
  */
 @Controller
+@SuppressWarnings("all")
 public class EvaluateController extends BaseController {
 
 	@Autowired
