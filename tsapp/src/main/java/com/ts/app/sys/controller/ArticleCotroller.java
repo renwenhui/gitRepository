@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ts.app.sys.constants.Constants;
 import com.ts.app.sys.domain.Article;
 import com.ts.app.sys.domain.Mycollection;
 import com.ts.app.sys.service.ArticleService;
@@ -88,7 +89,7 @@ public class ArticleCotroller extends BaseController{
 	public List<Article> listPingjia(){
 			Map<String,Object> filterMap = new HashMap<String,Object>();
 			Integer createuserid = getLoginUid();
-			filterMap.put("createuserid", createuserid);
+			filterMap.put("createUserId", createuserid);
 			List<Article>  articleList= 	articleService.listPingjia(filterMap);
 		return articleList;
 	}
@@ -102,7 +103,7 @@ public class ArticleCotroller extends BaseController{
 	public List<Article> listReply(){
 			Map<String,Object> filterMap = new HashMap<String,Object>();
 			Integer createuserid = getLoginUid();
-			filterMap.put("createuserid", createuserid);
+			filterMap.put("createUserId", createuserid);
 			List<Article>  articleList= 	articleService.listReply(filterMap);
 		return articleList;
 	}
@@ -130,16 +131,36 @@ public class ArticleCotroller extends BaseController{
 	
 	@RequestMapping("/articleController/get")
 	@ResponseBody
-	public Article get(Integer articleid){
+	public Map<String,Object> get(Integer articleid){
+		Map<String,Object> retMap = new HashMap<String,Object>();
+		retMap.put("msg", "操作成功");
+		retMap.put(Constants.SUCCESS, true);
 		Article article = new Article();
+		Integer myCoolection=0;
+		
 		try{
 			
 			article = articleService.selectByPrimaryKey(articleid);
+			
+			Integer createUserId = getLoginUid();
+			Map<String,Object> filterMap = new HashMap<String,Object>();
+			filterMap.put("articleId", articleid);
+			filterMap.put("createuserid", createUserId);
+			
+			List<Mycollection> MycollectionList = mycollectionService.selectByArticeIdAndCreateUid(filterMap);
+			
+			if(MycollectionList==null || MycollectionList.size()==0){
+				myCoolection=0;
+			}else {
+				myCoolection = 1;
+			}
 		}catch(Exception e){
 			
 		}
+		retMap.put("article",article);
+		retMap.put("myCoolection",myCoolection);
+		return retMap;
 		
-		return article;
 	}
 	
 	/**
@@ -212,17 +233,18 @@ public class ArticleCotroller extends BaseController{
 	 * @param article
 	 * @return
 	 */
-	@RequestMapping("/articleController/doLikenum")
+	@RequestMapping("/articleController/doLikenumAdd")
 	@ResponseBody
-	public Article doLikenum(Integer articleid){
+	public Map<String,Object> doLikenumAdd(Integer articleid){
+		Map<String,Object> retMap = new HashMap<String,Object>();
+		retMap.put("msg", "点赞成功");
+		retMap.put(Constants.SUCCESS, true);
 		
 		try{
-			
 			Integer createUserId = getLoginUid();
-			
 			Map<String,Object> filterMap = new HashMap<String,Object>();
-			filterMap.put("articleid", articleid);
-			filterMap.put("createUserId", createUserId);
+			filterMap.put("articleId", articleid);
+			filterMap.put("createuserid", createUserId);
 			
 			List<Mycollection> MycollectionList = mycollectionService.selectByArticeIdAndCreateUid(filterMap);
 			
@@ -238,7 +260,49 @@ public class ArticleCotroller extends BaseController{
 				article.setLikenum(1);
 				articleService.updateByPrimaryKeySelective(article);
 				
-				return article;
+				retMap.put("article", article);
+				return retMap;
+				
+			}
+			
+			Article article = articleService.selectByPrimaryKey(articleid);
+			retMap.put("article", article);
+		
+		}catch(Exception e){
+		}
+		
+		retMap.put("msg", "无需重复点赞");
+		retMap.put(Constants.SUCCESS, true);
+		return retMap;
+	}
+	
+	/**
+	 * 取消点赞
+	 * @param article
+	 * @return
+	 */
+	@RequestMapping("/articleController/doLikenumSub")
+	@ResponseBody
+	public Map<String,Object> doLikenumSub(Integer articleid){
+		
+		Map<String,Object> retMap = new HashMap<String,Object>();
+		retMap.put("msg", "取消成功");
+		retMap.put(Constants.SUCCESS, true);
+		try{
+			
+			Integer createUserId = getLoginUid();
+			
+			Map<String,Object> filterMap = new HashMap<String,Object>();
+			filterMap.put("articleId", articleid);
+			filterMap.put("createuserid", createUserId);
+			
+			List<Mycollection> MycollectionList = mycollectionService.selectByArticeIdAndCreateUid(filterMap);
+			
+			if(MycollectionList==null || MycollectionList.size()==0){
+				Article article = articleService.selectByPrimaryKey(articleid);
+				retMap.put("msg", "没有点赞，无法取消点赞");
+				retMap.put(Constants.SUCCESS, true);
+				retMap.put("article", article);
 				
 			}else{
 			
@@ -253,14 +317,15 @@ public class ArticleCotroller extends BaseController{
 				article.setLikenum(article.getLikenum()-1);
 				articleService.updateByPrimaryKeySelective(article);
 				
-				return article;
-				
+				retMap.put("article", article);
+				return retMap;
 			}
 		
 		}catch(Exception e){
+			e.printStackTrace();
 		}
 		
-		return new Article();
+		return retMap;
 	}
 	
 	/**

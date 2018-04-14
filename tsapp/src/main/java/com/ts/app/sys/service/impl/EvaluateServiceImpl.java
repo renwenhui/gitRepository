@@ -68,5 +68,16 @@ public class EvaluateServiceImpl implements EvaluateService {
 	public Integer getMyUnReadReply(Map<String, Object> filterMap) {
 		return evaluateMapper.getMyUnReadReply(filterMap);
 	}
+
+
+	@Override
+	public void changegetMyUnRead(Map<String, Object> filterMap) {
+		 evaluateMapper.changegetMyUnRead(filterMap);
+	}
+
+	@Override
+	public void changeMyUnReadReply(Map<String, Object> filterMap) {
+		 evaluateMapper.changeMyUnReadReply(filterMap);
+	}
 	
 }

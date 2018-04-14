@@ -127,8 +127,8 @@
    <update id="update2" parameterType="com.ts.app.sys.domain.Mycollection" >
     update mycollection
     set 
-      deleteFlag = #{deleteflag,jdbcType=CHAR}
-    where articleId = #{articleId,jdbcType=INTEGER}
+      deleteFlag = '1'
+    where articleId = #{articleid,jdbcType=INTEGER}
     and createUserId = #{createuserid,jdbcType=INTEGER}
     
   </update>

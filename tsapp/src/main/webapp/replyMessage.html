@@ -56,29 +56,43 @@
 <script src="static/js/js.js"></script>
 
 <script>
+
+//评价列表
+function evalArticle(articleid){
+    location.href = 'evaluateList.html?articleid='+articleid;
+}
+
 layui.use('flow', function(){
   var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
   var flow = layui.flow;
   flow.load({
     elem: '#LAY_demo1' //指定列表容器
     ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-
-    	var lis = [];
-
-        $.get(ctxApp+'/articleController/listReply?page='+page, function(data){
-           //假设你的列表返回在data集合中
-           layui.each(data, function(index, item){
-               var articleid = item.articleid;
-               
-               var title = item.title;
-               var imgurl = item.imgurl;
-               var likenum = item.likenum;
-               var evaluatenum = item.evaluatenum;
-               var articlecontent  = item.articlecontent;
-               
-               var putMsg = '<a href="articleDetail.html?articleid="'+articleid+' class="spot"><b><img src='+imgurl+' /></b><h3>'+title+'</h3><p>'+articlecontent+'</p><hr /></a>';
-             lis.push(putMsg);
-           }); 
+    	 var lis = [];
+    	$.get(ctxApp+'/articleController/listReply?page='+page, function(data){
+            //假设你的列表返回在data集合中
+            layui.each(data, function(index, item){
+                var articleid = item.articleid;
+                var title = item.title;
+                var imgurl = item.imgurl;
+                var likenum = item.likenum;
+                var evaluatenum = item.evaluatenum;
+                var articlecontent  = item.articlecontent;
+                
+                var putMsg ='';
+                putMsg += '<div class="spot">';
+                putMsg += '<a href="articleDetail.html?articleid="'+articleid+'" >';
+                putMsg += '<b><img src="/img/'+imgurl+'" /></b>';
+                putMsg += '<h3>'+title+'</h3>';
+                putMsg += '<p>'+articlecontent+'</p>';
+                putMsg += '<hr />';     
+                putMsg += '</a>';   
+                putMsg += '<img  onclick="evalArticle('+articleid+')" src="static/img/ggg.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 0.5rem;"><span>评价</span></img>';  
+                putMsg += '<img class="like " src="static/img/xi02@2xx.png" style="width:1.7rem;height: 1.7rem; margin-left: 3rem;margin-right: 0.5rem;"><span>点赞</span></img>';    
+                putMsg += '</div>'; 
+                
+                lis.push(putMsg); 
+            }); 
            
            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
