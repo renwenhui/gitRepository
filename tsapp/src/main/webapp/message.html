@@ -108,7 +108,6 @@ function changegetMyUnRead() {
         },
         type: "POST",
         dataType: "json",
-        ansyc:"false",
         success: function(data){
             $("#getMyUnRead").text(data.MyUnReadCount);
             $("#getMyUnReadReply").text(data.getMyUnReadReply);
