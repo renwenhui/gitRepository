@@ -25,4 +25,8 @@ public interface EvaluateMapper {
     public Integer getMyUnRead(Map<String, Object> filterMap) ;
     
     public Integer getMyUnReadReply(Map<String, Object> filterMap) ;
+
+	void changegetMyUnRead(Map<String, Object> filterMap);
+
+	void changeMyUnReadReply(Map<String, Object> filterMap);
 }

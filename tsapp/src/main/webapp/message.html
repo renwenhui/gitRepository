@@ -27,7 +27,7 @@
 	</div>
 	<div class="page_content">
 		 <div class="guide">
-		 	  <a href="evaluateMassage.html" class="guide_mint">
+		 	  <a href="javascript:void(0)" onclick="changegetMyUnRead()"  class="guide_mint">
 		 	  	  <div class="guide_mint_left">
 		 	  	  	 <img src="static/img/zn@2x.png">
 		 	  	  </div>
@@ -41,7 +41,7 @@
 		 	  	  	 <img src="static/img/my10@2x.png">  
 		 	  	  </div>
 		 	  </a>
-		 	  <a href="replyMessage.html" class="guide_mint">
+		 	  <a href="javascript:void(0)"  onclick="changeMyUnReadReply()" class="guide_mint">
 		 	  	  <div class="guide_mint_left">
 		 	  	  	 <img src="static/img/zn@2x_98.png">
 		 	  	  </div>
@@ -68,6 +68,7 @@
 	</div>				
 </body>
 <script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/layer/layer.js"></script>
 <script src="static/layui/layui.js"></script>
 <script src="static/js/js.js"></script>
 
@@ -95,6 +96,53 @@ $(document).ready(function(){
 	 });
 	
 	});
+	
+//改变评论消息状态
+function changegetMyUnRead() {
+	$.ajax({
+        url: ctxApp+'/evaluateController/changegetMyUnRead',
+        data: {
+        },
+        type: "POST",
+        dataType: "json",
+        success: function(data){
+            $("#getMyUnRead").text(data.MyUnReadCount);
+            $("#getMyUnReadReply").text(data.getMyUnReadReply);
+          },
+          error: function(data){
+              try {
+                 layer.msg("请求异常");
+                 return false;
+              }catch (e) {
+                 console.log(e);
+              }
+          }
+     });
+	location.href="evaluateMassage.html";
+}	
 
+//改变回复消息消息状态
+function changeMyUnReadReply() {
+	$.ajax({
+        url: ctxApp+'/evaluateController/changeMyUnReadReply',
+        data: {
+        },
+        type: "POST",
+        dataType: "json",
+        success: function(data){
+            $("#getMyUnRead").text(data.MyUnReadCount);
+            $("#getMyUnReadReply").text(data.getMyUnReadReply);
+          },
+          error: function(data){
+              try {
+                 layer.msg("请求异常");
+                 return false;
+              }catch (e) {
+                 console.log(e);
+              }
+          }
+     });
+	location.href="replyMessage.html";
+}   
 </script>
 </html>
