@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ts.app.sys.constants.Constants;
+import com.ts.app.sys.domain.Article;
 import com.ts.app.sys.domain.Evaluate;
+import com.ts.app.sys.service.ArticleService;
 import com.ts.app.sys.service.EvaluateService;
-import com.ts.app.sys.utils.CacheUtils;
 
 /**
  * 评价controller
@@ -23,6 +24,9 @@ public class EvaluateController extends BaseController {
 
 	@Autowired
 	private EvaluateService evaluateService;
+	
+	@Autowired
+    private ArticleService articleService;  
 	
 	/**
 	 * 评价列表
@@ -51,6 +55,19 @@ public class EvaluateController extends BaseController {
 			Evaluate.setCreateuserid(createuserid);
 			Evaluate.setCreatedate(new Date());
 			evaluateService.insert(Evaluate);
+			
+			Integer articleid = Evaluate.getArticleid();
+			Article article = articleService.selectByPrimaryKey(articleid);
+			
+			Integer evaluatenum = article.getEvaluatenum();
+			if(evaluatenum==null){
+				evaluatenum = 0;
+			}
+			evaluatenum=evaluatenum+1;
+			article.setEvaluatenum(evaluatenum);
+			
+			articleService.updateByPrimaryKeySelective(article);
+			
 		}catch(Exception e){
 			retMap.put("msg", "评价失败");
 			retMap.put("flag", "0");

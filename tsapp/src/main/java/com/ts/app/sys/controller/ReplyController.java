@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ts.app.sys.domain.Evaluate;
 import com.ts.app.sys.domain.Reply;
+import com.ts.app.sys.service.EvaluateService;
 import com.ts.app.sys.service.ReplyService;
 
 /**
@@ -22,6 +24,9 @@ public class ReplyController extends BaseController {
 	@Autowired
 	private ReplyService replyService;
 	
+	@Autowired
+	private EvaluateService evaluateService;
+	
 	@RequestMapping("/replyController/doInsert")
 	@ResponseBody
 	public Map<String,String> doInster(Reply reply){
@@ -32,6 +37,15 @@ public class ReplyController extends BaseController {
 		try{
 			
 			Integer evaluateid = reply.getEvaluateid();
+			Integer createUserId = getLoginUid();
+			
+			Evaluate evaluate = evaluateService.selectByPrimaryKey(evaluateid);
+			
+			if(evaluate!=null && evaluate.getCreateuserid().intValue()==createUserId.intValue()){
+				retMap.put("msg", "不能回复自己的评价");
+				retMap.put("flag", "0");
+				return retMap;
+			}
 			
 			List<Reply> replyList =  replyService.selectByEvaluateid( evaluateid);
 			
