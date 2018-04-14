@@ -101,7 +101,11 @@ layui.use('flow', function(){
     	           
     	          var msg = '<div class="Businessx">'; 
     	          msg += '<div >';
-    	          msg += '<img src=/img/'+headUrl+'  style="border-radius: 2rem;width:4rem;height:4rem;float:left;margin-left: 0.5rem;">';
+    	          if(!headUrl){
+    	         	  msg += '<img src="static/img/pjimg.jpg"  style="border-radius: 2rem;width:4rem;height:4rem;float:left;margin-left: 0.5rem;">';
+    	          }else{
+        	          msg += '<img src=/img/'+headUrl+'  style="border-radius: 2rem;width:4rem;height:4rem;float:left;margin-left: 0.5rem;">';
+    	          }
     	          msg += '<p style="color: #9c9898;font-size：1.5rem;line-heigh: 1rem;padding-left: 5rem;">'+userNameA+'</p>';
     	          msg += '<p style="font-size：1.8rem;padding-left: 5rem;padding-top: 0.8rem;">'+evaluateContent+'</p>';
     	          msg += "</div>";  

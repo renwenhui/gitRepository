@@ -26,12 +26,12 @@
     
 <body>
 	<div class="app_hend">
-		   资讯
-		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="img/sy_icon01.png"></a>
+		   咨讯详情
+		  <a class="lanep" onclick="javascript:history.back(-1);"><img src="static/img/sy_icon01.png"></a>
 	</div>
 	<div class="page_content">
 		 <div class="Scenic">
-		 	 <a class="spot">
+		 	 <a class="spot" style="background-color:#f0f2f5;">
 		 	 	<h2 id="title"></h2>
 		 	 	<div class="swiper-container orderp">
 				        <div class="swiper-wrapper">
@@ -44,7 +44,7 @@
 				        <div class="swiper-button-next"></div>
 				        <div class="swiper-button-prev"></div>
 				   </div>
-				   <div id="articlecontent"></div>
+				   <p id="articlecontent"></p> 
 		 	 </a>
 		 	 
 		 </div>
@@ -59,8 +59,8 @@
 		</ul>
 	</div>				
 </body>
-<script src="js/jquery-1.10.1.min.js"></script>
-<script src="js/js.js"></script>
+<script src="static/js/jquery-1.10.1.min.js"></script>
+<script src="static/js/js.js"></script>
 <!-- Swiper JS -->
 <script src="static/js/swiper.min.js"></script>
 <!-- Initialize Swiper -->
@@ -80,20 +80,18 @@ $(document).ready(function(){
 //获取文章详情
 function doGetInfo() {
     var articleid = getQueryString("articleid");
-    alert(articleid);
-    
     $.ajax({
-                 url: ctxApp+"/articleController/get?articleid="+articleid,
-                 dataType: 'json',
-                 data:postData,
-                 method: 'POST',
-                 async: false,//使用同步的方式,true为异步方式
-                 success: function(data) {
-                	 $("#title").val(data.title);
-                	 $("#articlecontent").val(data.articlecontent);
-                	 $("#imgurl").attr("src",data.imgurl);
-                }
-        });
+          url: ctxApp+"/articleController/get?articleid="+articleid,
+          dataType: 'json',
+          method: 'POST',
+          async: false,//使用同步的方式,true为异步方式
+          success: function(data) {
+         	 $("#title").text(data.article.title);
+         	 $("#articlecontent").text(data.article.articlecontent);
+         	 var imgurl = '/img/'+data.article.imgurl;
+         	 $("#imgurl").attr("src",imgurl);
+         }
+     });
     
 }
 

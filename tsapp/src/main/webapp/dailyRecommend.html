@@ -84,10 +84,12 @@ layui.use('flow', function(){
             
             var putMsg ='';
             putMsg += '<div class="spot">';
-            putMsg += '<a href="articleDetail.html?articleid="'+articleid+'" >';
+            putMsg += '<a href="articleDetail.html?articleid='+articleid+'" >';
             putMsg += '<b><img src="/img/'+imgurl+'" /></b>';
             putMsg += '<h3>'+title+'</h3>';
-            putMsg += '<p>'+articlecontent+'</p>';
+            articlecontent = articlecontent.substring(0, 50);
+            console.log(articlecontent);
+            putMsg += '<p>'+articlecontent+'......</p>';
             putMsg += '<hr />';		
             putMsg += '</a>';	
             putMsg += '<img onclick="evalArticle('+articleid+')" src="static/img/ggg.png" style="width:1.7rem;height: 1.7rem;margin-left: 1rem;margin-right: 0.5rem;"><span>评价</span></img>';	

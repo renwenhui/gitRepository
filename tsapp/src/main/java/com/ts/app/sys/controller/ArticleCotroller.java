@@ -48,10 +48,10 @@ public class ArticleCotroller extends BaseController{
 	@RequestMapping("/articleController/list")
 	@ResponseBody
 	public List<Article> list(){
-			Map<String,Object> filterMap = new HashMap<String,Object>();
-			filterMap.put("userType", "0");
-			List<Article>  articleList= articleService.queryListArticle(filterMap);
-		return articleList;
+		Map<String,Object> filterMap = new HashMap<String,Object>();
+		filterMap.put("userType", "0");
+		List<Article>  articleList= articleService.queryListArticle(filterMap);
+	return articleList;
 	}
 	
 	/**
@@ -129,6 +129,9 @@ public class ArticleCotroller extends BaseController{
 		return retMap;
 	}
 	
+	/**
+	 * 根据文章id查询详情
+	 */
 	@RequestMapping("/articleController/get")
 	@ResponseBody
 	public Map<String,Object> get(Integer articleid){
@@ -166,7 +169,6 @@ public class ArticleCotroller extends BaseController{
 	/**
 	 * 发帖
 	 */
-	
 	@RequestMapping(value = "/articleController/publishArticle", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> upphoto(HttpServletRequest request, @RequestParam(value="file",required = false)MultipartFile file[],String title, String articlecontent){
