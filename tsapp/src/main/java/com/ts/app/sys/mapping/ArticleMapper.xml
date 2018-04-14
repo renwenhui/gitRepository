@@ -191,7 +191,13 @@
 	FROM article a
  	JOIN user u
     ON u.userId = a.createUserId
-    where u.userType =#{userType}
+    where a.deleteFlag = '0'
+    <if test="userType != null  ">  
+       	and u.userType = #{userType} 
+   	</if>
+    <if test="createuserid != null ">  
+       	and a.createUserId = #{createuserid} 
+   	</if>
   </select>
   
    <select id="queryListArticle2" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
@@ -234,6 +240,25 @@
     
     and  e.createUserId=#{createUserId,jdbcType=INTEGER}
      and (r.isReaded=0  or r.isReaded is null)
+  </select>
+  
+  
+  <select id="queryListByMyEvaluate" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
+    SELECT
+	a.articleId,
+	a.title,
+	a.imgUrl,
+	a.likeNum,
+	a.evaluateNum,
+	a.createUserId,
+	a.createDate,
+	a.updateUserId,
+	a.updateDate,
+	a.deleteFlag,
+	a.articleContent
+	FROM article a
+    JOIN evaluate e ON e.articleId = a.articleId
+    where e.createUserId = #{createuserid,jdbcType=INTEGER}
   </select>
   
 </mapper>

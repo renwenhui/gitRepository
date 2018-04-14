@@ -37,5 +37,11 @@ public interface ArticleService {
 	 * @return
 	 */
       public List<Article> listReply(Map<String,Object> filterMap);
+      
+      /**
+  	 * 别人的评价，我评价的
+  	 * @return
+  	 */
+      public List<Article> queryListByMyEvaluate(Map<String, Object> filterMap) ;
     
 }

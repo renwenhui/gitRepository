@@ -73,9 +73,10 @@ public class ArticleCotroller extends BaseController{
 	@RequestMapping("/articleController/listMy")
 	@ResponseBody
 	public List<Article> listMy(){
+		Integer createuserid = getLoginUid();
 		Map<String,Object> filterMap = new HashMap<String,Object>();
-		filterMap.put("userType", "1");
-		List<Article>  articleList= 	articleService.queryListArticle(filterMap);
+		filterMap.put("createuserid", createuserid);
+		List<Article>  articleList= articleService.queryListArticle(filterMap);
 		return articleList;
 	}
 	
@@ -331,6 +332,21 @@ public class ArticleCotroller extends BaseController{
 		}
 		
 		return retMap;
+	}
+	
+	/**
+	 * 获得我评价的帖子
+	 * @return
+	 */
+	@RequestMapping("/evaluateController/myEvaluate")
+	@ResponseBody
+	public List<Article> myEvaluate(){
+		Integer createuserid = getLoginUid();
+		Map<String,Object> filterMap = new HashMap<String,Object>();
+		filterMap.put("createuserid", createuserid);
+		List<Article>  articleList= articleService.queryListByMyEvaluate(filterMap);
+		
+		return articleList;
 	}
 	
 }

@@ -74,5 +74,10 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> listReply(Map<String, Object> filterMap) {
 		return articleMapper.listReply(filterMap);
 	}
+
+	@Override
+	public List<Article> queryListByMyEvaluate(Map<String, Object> filterMap) {
+		return articleMapper.queryListByMyEvaluate(filterMap);
+	}
 	
 }
