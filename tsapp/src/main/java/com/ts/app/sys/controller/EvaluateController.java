@@ -68,7 +68,7 @@ public class EvaluateController extends BaseController {
 	public Map<String,Object> getMyUnRead(){
 		Integer createuserid = getLoginUid();
 		Map<String,Object> filterMap = new HashMap<String,Object>();
-		filterMap.put("createuserid", createuserid);
+		filterMap.put("createUserId", createuserid);
 		
 		Integer  MyUnReadCount= 	evaluateService.getMyUnRead(filterMap);
 		

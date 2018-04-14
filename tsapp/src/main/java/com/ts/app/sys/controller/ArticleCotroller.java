@@ -88,7 +88,7 @@ public class ArticleCotroller extends BaseController{
 	public List<Article> listPingjia(){
 			Map<String,Object> filterMap = new HashMap<String,Object>();
 			Integer createuserid = getLoginUid();
-			filterMap.put("createuserid", createuserid);
+			filterMap.put("createUserId", createuserid);
 			List<Article>  articleList= 	articleService.listPingjia(filterMap);
 		return articleList;
 	}
@@ -102,7 +102,7 @@ public class ArticleCotroller extends BaseController{
 	public List<Article> listReply(){
 			Map<String,Object> filterMap = new HashMap<String,Object>();
 			Integer createuserid = getLoginUid();
-			filterMap.put("createuserid", createuserid);
+			filterMap.put("createUserId", createuserid);
 			List<Article>  articleList= 	articleService.listReply(filterMap);
 		return articleList;
 	}

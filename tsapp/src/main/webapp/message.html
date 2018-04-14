@@ -81,8 +81,8 @@ $(document).ready(function(){
 	    type: "POST",
 	    dataType: "json",
 	    success: function(data){
-	        $("#getMyUnRead").val(data.MyUnReadCount);
-	        $("#getMyUnReadReply").val(data.getMyUnReadReply);
+	        $("#getMyUnRead").text(data.MyUnReadCount);
+	        $("#getMyUnReadReply").text(data.getMyUnReadReply);
 	      },
 	      error: function(data){
 	          try {

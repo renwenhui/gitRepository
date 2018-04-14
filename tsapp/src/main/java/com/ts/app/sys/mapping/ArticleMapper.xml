@@ -221,8 +221,7 @@
     from article a,  evaluate e
     where  a.articleId=e.articleId
     and  a.createUserId=#{createUserId,jdbcType=INTEGER}
-    and e.isReaded=0
-    
+     and (e.isReaded=0  or e.isReaded is null)
   </select>
   
   <select id="listReply" parameterType="java.util.HashMap" resultMap="ResultMapWithBLOBs">
@@ -234,8 +233,7 @@
     and r.evaluateId=e.evaluateId
     
     and  e.createUserId=#{createUserId,jdbcType=INTEGER}
-    and r.isReaded=0
-    
+     and (r.isReaded=0  or r.isReaded is null)
   </select>
   
 </mapper>
