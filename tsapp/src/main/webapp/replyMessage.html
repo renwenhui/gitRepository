@@ -96,6 +96,7 @@ layui.use('flow', function(){
                 lis.push(putMsg); 
             }); 
            
+            changeMyUnReadReply();
            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
            next(lis.join(''), page < 1);    //默认显示一页
@@ -104,8 +105,28 @@ layui.use('flow', function(){
     }
   });
 });	
-$('body').on('click','.evaluate',function(){
-	location.href = 'evaluateList.html';	
-})
+
+//改变回复消息消息状态
+function changeMyUnReadReply() {
+    $.ajax({
+        url: ctxApp+'/evaluateController/changeMyUnReadReply',
+        data: {
+        },
+        type: "POST",
+        dataType: "json",
+        success: function(data){
+        	console.log("sucess");
+          },
+          error: function(data){
+              try {
+                 layer.msg("请求异常");
+                 return false;
+              }catch (e) {
+                 console.log(e);
+              }
+          }
+     });
+    
+}   
 </script>
 </html>
