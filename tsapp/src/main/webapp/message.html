@@ -99,55 +99,12 @@ $(document).ready(function(){
 	
 //改变评论消息状态
 function changegetMyUnRead() {
-	var url =ctxApp+'/evaluateController/changegetMyUnRead';
-	console.log(url);
-	
-	$.ajax({
-        url: ctxApp+'/evaluateController/changegetMyUnRead',
-        data: {
-        },
-        type: "POST",
-        dataType: "json",
-        success: function(data){
-            $("#getMyUnRead").text(data.MyUnReadCount);
-            $("#getMyUnReadReply").text(data.getMyUnReadReply);
-            location.href="evaluateMassage.html";
-          },
-          error: function(data){
-              try {
-                 layer.msg("请求异常");
-                 return false;
-              }catch (e) {
-                 console.log(e);
-              }
-          }
-     });
-	
+	location.href="evaluateMassage.html";
 }	
 
 //改变回复消息消息状态
 function changeMyUnReadReply() {
-	$.ajax({
-        url: ctxApp+'/evaluateController/changeMyUnReadReply',
-        data: {
-        },
-        type: "POST",
-        dataType: "json",
-        success: function(data){
-            $("#getMyUnRead").text(data.MyUnReadCount);
-            $("#getMyUnReadReply").text(data.getMyUnReadReply);
-            location.href="replyMessage.html";
-          },
-          error: function(data){
-              try {
-                 layer.msg("请求异常");
-                 return false;
-              }catch (e) {
-                 console.log(e);
-              }
-          }
-     });
-	
+	location.href="replyMessage.html";
 }   
 </script>
 </html>
