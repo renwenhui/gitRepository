@@ -77,7 +77,7 @@ $('.biem_cont').click(function(){
 })
 
 /*收藏*/
-$('body').on('click','.like',function(){
+/*$('body').on('click','.like',function(){
 	if($(this).hasClass('j')){
 		$(this).attr('src','static/img/xi02@2xx.png')   
 	    $(this).removeClass('j')
@@ -85,7 +85,7 @@ $('body').on('click','.like',function(){
 		$(this).attr('src','static/img/xi01@2xx.png')
 	    $(this).addClass('j')
 	}		
-}) 
+}) */
 
 /*注册协议*/
 $('.Coupon').click(function(){
