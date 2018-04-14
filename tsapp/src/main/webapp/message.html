@@ -99,6 +99,9 @@ $(document).ready(function(){
 	
 //改变评论消息状态
 function changegetMyUnRead() {
+	var url =ctxApp+'/evaluateController/changegetMyUnRead';
+	console.log(url);
+	
 	$.ajax({
         url: ctxApp+'/evaluateController/changegetMyUnRead',
         data: {
@@ -108,6 +111,7 @@ function changegetMyUnRead() {
         success: function(data){
             $("#getMyUnRead").text(data.MyUnReadCount);
             $("#getMyUnReadReply").text(data.getMyUnReadReply);
+            location.href="evaluateMassage.html";
           },
           error: function(data){
               try {
@@ -118,7 +122,7 @@ function changegetMyUnRead() {
               }
           }
      });
-	location.href="evaluateMassage.html";
+	
 }	
 
 //改变回复消息消息状态
@@ -132,6 +136,7 @@ function changeMyUnReadReply() {
         success: function(data){
             $("#getMyUnRead").text(data.MyUnReadCount);
             $("#getMyUnReadReply").text(data.getMyUnReadReply);
+            location.href="replyMessage.html";
           },
           error: function(data){
               try {
@@ -142,7 +147,7 @@ function changeMyUnReadReply() {
               }
           }
      });
-	location.href="replyMessage.html";
+	
 }   
 </script>
 </html>

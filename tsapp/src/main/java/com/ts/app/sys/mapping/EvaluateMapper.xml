@@ -197,8 +197,14 @@
   <select id="changegetMyUnRead" parameterType="java.util.HashMap" resultType="java.lang.Integer">
     update  evaluate e set isReaded=1
     where 
-     e.createUserId=#{createUserId,jdbcType=INTEGER}
-    and (e.isReaded=0  or e.isReaded is null)
+     (e.isReaded=0  or e.isReaded is null)
+    
+     and exists 
+       (
+        select 1 from article  a where a.articleId = e.articleId
+        
+        and  a.createuserid=#{createUserId,jdbcType=INTEGER}
+       )
   </select>
   
    <select id="changeMyUnReadReply" parameterType="java.util.HashMap" resultType="java.lang.Integer">
