@@ -256,7 +256,13 @@ public class ArticleCotroller extends BaseController{
 				mycollectionService.insert(Mycollection);
 				
 				Article article = articleService.selectByPrimaryKey(articleid);
-				article.setLikenum(1);
+				
+				Integer likenum = article.getLikenum();
+				if(likenum==null){
+					likenum = 0;
+				}
+				likenum=likenum+1;
+				article.setLikenum(likenum);
 				articleService.updateByPrimaryKeySelective(article);
 				
 				retMap.put("article", article);
